@@ -1,0 +1,43 @@
+.
+
+.nav-item {
+    color: rgb(214, 16, 16);
+    transition: transform 0.3s ease-in-out;
+    padding: 5px 10px;
+    border-radius: 10%;
+    margin-left: 100px;
+    display: inline-block;
+    border-bottom: 2px solid transparent; /* Reserve space */
+}
+
+.nav-item:hover {
+    background-color: white;
+    transform: scale(1.05);
+}
+.custom-nav .nav-link{
+    margin-left: 100px !important;
+}
+.banner1, .banner2, .banner3{
+    width: 100%;
+    height:400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-size: 40px;
+    font-weight: bold;
+    flex-direction: column;
+}
+.banner1{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("bible1.jpg");
+}
+.banner2{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("banner2.jpg");
+}
+.banner3{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("banner3.jpg");
+}
