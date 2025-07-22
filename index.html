@@ -20,7 +20,7 @@
 <body>
   <section class="container p-5">
     <div class="col-lg-6 p-5 mx-auto" style="box-shadow:0 4px 8px rgba(0,0,0,0.2),0 6px 20px rgba(0,0,0,0.19);">
-      <h1 class="text-center mb-3 mt-0"><strong>Anil Bible quiz</strong></h1>
+      <h1 class="text-center mb-3 mt-0"><strong>House of prayer</strong></h1>
    
     <form onsubmit="return validate()" action="bible.html">
   <input id="username" type="text" name="username" placeholder="enter name" class="form-control mb-3">
@@ -68,14 +68,16 @@
 
   // ✅ Firebase config (నీ project settings నుంచి తీసుకున్నది)
   const firebaseConfig = {
-    apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
-    authDomain: "new-bible-quiz-app.firebaseapp.com",
-    databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
-    projectId: "new-bible-quiz-app",
-    storageBucket: "new-bible-quiz-app.firebasestorage.app",
-    messagingSenderId: "686170969568",
-    appId: "1:686170969568:web:31d3e10ed615dba548c785"
-  };
+  apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
+  authDomain: "new-bible-quiz-app.firebaseapp.com",
+  databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
+  projectId: "new-bible-quiz-app",
+  storageBucket: "new-bible-quiz-app.appspot.com", // ✅ ఇదే కరెక్ట్
+  messagingSenderId: "686170969568",
+  appId: "1:686170969568:web:31d3e10ed615dba548c785"
+};
+
+  
 
   // ✅ Initialize Firebase (ఒకసారి మాత్రమే)
   const app = initializeApp(firebaseConfig);
@@ -125,4 +127,4 @@
 </script>
 </body>
 </html>  
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5

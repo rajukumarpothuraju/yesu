@@ -1,170 +1,194 @@
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+// ✅ Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
+  authDomain: "new-bible-quiz-app.firebaseapp.com",
+  databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
+  projectId: "new-bible-quiz-app",
+  storageBucket: "new-bible-quiz-app.firebasestorage.app",
+  messagingSenderId: "686170969568",
+  appId: "1:686170969568:web:31d3e10ed615dba548c785"
+};
+
+// ✅ Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+// --------------------
+// ✅ GLOBAL VARIABLES
+// --------------------
 let score = 0;
 let answered = {};
+document.getElementById("scoreBoard").textContent = "Score: 0";
 
-let answerlist={
-    1: ["genesis","ఆదికాండము", "adhikhandamu", "adikandamu","adikandamu","genesis", "Genesis", "GENESIS",
-    "adikandamu", "Adhikandamu", "ADIKANDAMU","adikandamu",
-    "ఆదికాండము", "ఆదికాండమును"],
-  2: ["light", "వెలుగు", "velugu","Light", "LIGHT",
-    "ప్రకాశం", "వెలుగు",],
-  3:["Adam", "ఆదాము","adam","adamu","aadamu","adam", "Adam", "ADAM", "ఆదాము", "ఆదాం"],
-  4:["eve","హవ్వ", "Eve", "EVE", "హవ్వ", "హవా","avva","ava","havva"] ,
-  5: [
-  "cain","కయిను", "Cain", "CAIN","kayenu",
-  "kain", "Kain", "KAIN",
-  "kayen", "Kayen", "KAYEN",
-  "kayin", "Kayin", "KAYIN",
-  "కాయిన్", "కయిను", "కయిన", "కయేను", "కయేను"
-],
-6: ["rainbow", "ధనుస్సు", "ధనుసు", "bow", "వర్ణధనుస్సు","indradanusu"],
-  7: ["eve", "హవ్వ", "Eve", "EVE", "హవ్వ", "హవా","avva","ava","havva"],
-  8: [ "హాబేలు","hebel","ఆబేలు", "హాబేలు","hebel", "abel","habel"],
-  9: ["ship", "నౌక", "ఆర్క్", "ark","ship","padava","nouka","ship"],
-  10: ["హాము","యాఫెత్","shem","ham","japheth","shemu","hamu","yapheth"],
-  11: ["devunikanna paina vundamu ani","పేరు సంపాదించుకోవడం","peru sampadinchadam","self name","name"],
-  12: ["సారా","sara","sarah","sarayi"],
-  13: ["ఇస్సాకు","isaac","issaku","isaac"],
-  14: ["agni cheta నాశనం cheyabadindi" ,"sodom destroyed"],
-  15: ["ఉప్పు స్తంభం","salt pillar","uppu stambam","pillar of salt"],
-  16: ["ఇస్సాకు","isaac","issaku"],
-  17: ["రిబ్కా","rebecca","rebekah","ribka","rebkah","rebka"],
-  18: ["యాకోబు మరియు ఈశావు","jacob","esau","yakobu","esavu","yakobu esavu","yakobu mariyu esavu"],
-  19: ["బేతేలు","bethel","betelu"],
-  20: ["లేయా","leah","leya"],
-  21: ["రాహేలు","rahel","rachel"],
-  22: ["యాకోబు","jacob","yakobu","jacob"],
-  23: ["ఇష్మాయేలీయులకు",
-  "ishmaelites",
-  "ishmailites",
-  "ఇష్మాయేలీయులు",
-  "ఇష్మాయేలీయ",
-  "ishmaelite traders",
-  "merchantmen",
-  "ishmayeliyaluku"
-    
-  ],
-  24: ["ఈజిప్టు","egypt","ejiptu"],
-  25: ["పోతిఫరు","ఇష్మాయేలీయుల",
-  "ishmaelites",
-  "ishmailites",
-  "ఇష్మాయేలీయులు",
-  "ఇష్మాయేలీయ",
-  "ishmaelite traders",
-  "merchantmen",
-  "ishmayeliyaluku","potiphar","potiparu"],
-  26: [
-  "రంగులా రంగుల వస్త్రం", "వస్త్రం",
-  "coat",
-  "vastram",
-  "dress",
-  "వర్ణవస్త్రం",
-  "colorful coat",
-  "special coat",
-  "రంగులా రంగులా వస్త్రం" // ✅ నీ కోరినది కూడా add చేశాను
-],
-27: [
-  "రాహేలు",
-  "rahel",
-  "rachel",
-  "leah rachel","rahelu" // ఎవరికైనా mix చేసి చెప్పినా గుర్తు పడతాం
-],
+// --------------------
+// ✅ Login అయ్యిన వెంటనే score reset చేయడం
+// --------------------
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // 👉 ప్రతి సారి login లేదా page reload తర్వాత score reset
+    set(ref(db, 'scores/' + user.uid), {
+      score: 0,
+      timestamp: Date.now()
+    })
+    .then(() => {
+      console.log("✅ Score reset done");
+      score = 0;
+      answered = {};
+      document.getElementById("scoreBoard").textContent = "Score: 0";
+    })
+    .catch((err) => console.error("❌ reset error", err));
+  } else {
+    console.warn("⚠️ user not logged in");
+  }
+});
 
-  28: ["యోసేపు","joseph","yosepu"],
-  29: ["యోసేపు","joseph","yosepu"],
- 30: [
-  "పోతిఫరు",
-  "potiphar",
-  "potiparu",
-  "పోతిఫర్",
-  "potipar"
-],
+// --------------------
+// ✅ Save score
+// --------------------
+function saveScoreToFirebase() {
+  const user = auth.currentUser;
+  if (!user) {
+    console.log("❌ User not logged in so not saving");
+    return;
+  }
+  set(ref(db, 'scores/' + user.uid), {
+    score: score,
+    timestamp: Date.now()
+  })
+    .then(() => console.log("✅ Score Saved to Firebase:", score))
+    .catch((err) => console.error("❌ Score Save Error", err));
+}
 
-  31: ["యోసేపు","joseph","yosepu"],
-  32: ["రూబేను","reuben","rubenu"],
-  33: ["రాహేలు","rahel","rachel"],
-  34: ["యాకోబు","jacob","yakobu"],
-  35: ["పన్నెండు","12","twelve","pannendu"],
-  36: ["మనష్షే","manasseh","manashe","మనశ్శే","mannishe","manishe"],
-  37: ["ఎఫ్రయిము","ephraim","efrayim","ఎఫ్రయిమ్","eprayemu"],
-  38: ["lothu","lot","lotu"],
-  39: ["esavu","esavu"],
-  40: ["అబ్రాహాము","abraham","abrahamu"],
-  41: ["రిబ్కా","rebecca","rebekah","ribka"],
-  42: ["ఇష్మాయేలు","ishmael","ishmail","ఇష్మాయేలు"],
-  43: ["రూబేను","reuben","rubenu"],
-  44: ["బెన్యామీను","benjamin","benyamin","benyaminu"],
-  45: ["సారా","sara","sarah"],
-  46: ["హాగరు","hagar","haggar","hagru","hagaru"],
-  47: ["కానాను","canaan","kaananu","కానాను దేశం"],
-  48: ["బేతూయేలు","bethuel","betuel","బేతూయేలు","bethuyelu","bethuyel"],
-  49: ["లాబాను","laban","labanu"],
-  50: ["బేతూయేలు","bethuel","betuel","bethuyel"],
-  51: ["రాహేలు","rachel","rahel","rahelu"],
-  52: ["లేయా రాహేలు","leah rachel","leya rahel","leah and rachel","leya rahelu"],
-  53: ["బెన్యామీను","benjamin","benyamin","benyaminu"],
-  54: ["రాహేలు","rachel","rahel","rahelu"],
-  55: ["యాకోబు ఈశావు","jacob esau","yakobu esavu","yakob esav"],
- 56: [
-  "బేతేలు",
-  "bethel",
-  "betelu"
-],
+// --------------------
+// ✅ Levenshtein helper
+// --------------------
+function levenshtein(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, () => []);
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      matrix[i][j] =
+        a[i - 1] === b[j - 1]
+          ? matrix[i - 1][j - 1]
+          : Math.min(
+              matrix[i - 1][j - 1] + 1,
+              matrix[i][j - 1] + 1,
+              matrix[i - 1][j] + 1
+            );
+    }
+  }
+  return matrix[a.length][b.length];
+}
 
-  57: ["ఇస్రాయేలు","israel","israyelu"],
- 58: [
-  "దోతాను",
-  "దోతాను బావి",
-  "dothan",
-  "dothanu",
-  "dothan pit"
-],
-
-  59: ["యాకోబు","jacob","yakobu"],
-  60: ["రూబేను షిమ్యోను లేవీ యూదా ఇస్సాఖారు జెబులూను","6 members","షిమ్యోను","లేవీ","యూదా","ఇస్సాఖారు","జెబులూను",
-       "reuben","simeon","levi","judah","issachar","zebulun"]
-
-  
+// --------------------
+// ✅ ANSWER LIST
+// --------------------
+const answerlist = {
+  1: ["2వ రోజు","2 రోజు","రెండవ రోజు","2nd day","second day"],
+  2: ["మోషే","moshe","moses"],
+  3: ["1533","ఒకవేలు ఐదు వందలు ముప్పైమూడు","1533 verses"],
+  4: ["ఆదికాండము 3:15","genesis 3:15","3:15","మూడవ అధ్యాయం 15వ వచనం"],
+  5: ["నోదు","nod","nothu","nodo"],
+  6: ["యూబాలు","jubal","yubalu"],
+  7: ["ఓదార్పు","comfort","odaarpu","odarp"],
+  8: ["చితిసారకపు చెట్టు","gopher wood","gofor","gopher","chitisarapu"],
+  9: ["ఏడవ నెల 17వ రోజు","7th month 17th day","seventh month","17వ రోజు"],
+  10: ["హవీలా","havila","havilah"],
+  11: ["నిమ్రోదు","nimrod","nimrodhu"],
+  12: ["షావే లోయ","shaveh valley","shave","shawe"],
+  13: ["మెల్కీసెదెకు","melchizedek","melkisedeku"],
+  14: ["యిష్మాయేలు","ishmael","ishmail"],
+  15: ["అబీమెలెకు","abimelech","abimelek"],
+  16: ["బేతేలు","bethel","betelu"],
+  17: ["అనా","anah","ana"],
+  18: ["జప్నత్ప నేహు","zaphnath paaneah","zapnath","japnathpanehu"],
+  19: ["ఫరోరాజు","pharaoh","pharo","paro"],
+  20: ["సప్తజల ధారలు కలిగిన బావి","beersheba","beer sheba","seven wells"],
+  21: ["జెబూలూను","zebulun","jebulunu"],
+  22: ["నఫ్తాలి","naphtali","nafthali"],
+  23: ["దాసు","dan","daasu"],
+  24: ["బెన్యామీను","benjamin","benyamin","benyaminu"],
+  25: ["హిత్తీయుడు ఎఫ్రోను","ephron","hitthiyudu","hethite ephron"],
+  26: ["తూబల్కయీను","tubal-cain","tubal kayin","tubal"],
+  27: ["ఆదా","సిల్లా","adha","zilla","adah","zillah"],
+  28: ["ఏడవ నెల పదియేడవ రోజు","7th month 17th day","seventeenth","17వ రోజు"],
+  29: ["నేబాయోతు","nebaoth","nebayoth"],
+  30: ["బాశెమతు","bashemath","basemath"],
+  31: ["భక్ష్యకారుల అధిపతి","chief baker","baker head","bhakshyakaarula adhipathi"],
+  32: ["ఆసెనతు","asenath","asenatu"],
+  33: ["పోతీఫెరు","potiphera","potipherah","potipheru","ఓనుకు యాజకుడు"],
+  34: ["గోషెను","goshen","gosenu"],
+  35: ["బెన్నమ్మి","ben-ammi","benammi"],
+  36: ["బెతూయేలు","bethuel","bethuyel","bethuvel"],
+  37: ["పీషోను","pishon","pison","peeshonu"],
+  38: ["హవీలా","havila","havilah"],
+  39: ["గీహోను","gihon","gihonu"],
+  40: ["బేయేర్ లహాయిరోయి","beer-lahai-roi","beer lahai roi","bayyer lahairoi"],
+  41: ["దెబోరా","deborah","debora"],
+  42: ["నూట ముప్పది","130","130 years","nootu muppadi"],
+  43: ["ఏరు","er","eru","airu"],
+  44: ["జప్నత్ప నేహు","zaphnath paaneah","zapnath"],
+  45: ["డెబ్బది ఐదు సంవత్సరములు","75 years","debbaidi aidu","75"],
+  46: ["బేత్లెహేము ఎఫ్రాతా మార్గమున","bethlehem","efratha road","bethlehem ephrath"],
+  47: ["నూటపది సంవత్సరములు","110 years","110","nootapadi samvatsaralu"],
+  48: ["పిచుల వృక్షము","tamarisk tree","tamarisk","pichula vruksham"],
+  49: ["పదుమూడేళ్ళవాడు","13 years","13","padumoodu samvatsaralu"],
+  50: ["నోదు","nod","nodo","nodu"]
 };
-function checkanswer(qno){
-  // input box value తీసుకోవడం
-  const input = document.getElementById("question" + qno);
-  let userAnswer = input.value.trim().toLowerCase();
-  let result = document.getElementById("result" + qno);
 
-  // 1️⃣ Empty check
-  if(userAnswer === ""){
+// --------------------
+// ✅ CHECK ANSWER
+// --------------------
+window.checkanswer = function(qno) {
+  const input = document.getElementById("question" + qno);
+  const result = document.getElementById("result" + qno);
+  let userAnswer = input.value.trim().toLowerCase();
+
+  if (answered[qno]) {
+    result.textContent = "🔒 ఈ ప్రశ్నకి సమాధానం ఇప్పటికే submit అయ్యింది!";
+    result.style.color = "blue";
+    return false;
+  }
+  if (userAnswer === "") {
     result.textContent = "❌ దయచేసి సమాధానం ఇవ్వండి";
     result.style.color = "red";
     return false;
   }
 
-  // 2️⃣ Already answered check
-  if(answered[qno]){
-    result.textContent = "✅ ఈ ప్రశ్నకి ఇప్పటికే mark ఇచ్చారు!";
-    result.style.color = "blue";
-    return false;
+  let isCorrect = false;
+  for (let ans of answerlist[qno]) {
+    let cleanAns = ans.toLowerCase().trim();
+    if (cleanAns === userAnswer || levenshtein(cleanAns, userAnswer) <= 2) {
+      isCorrect = true;
+      break;
+    }
   }
 
-  // 3️⃣ Correct/Wrong check
-  if(answerlist[qno].includes(userAnswer)){
+  if (isCorrect) {
     result.textContent = "✅ Correct answer!";
     result.style.color = "green";
     score++;
-    answered[qno] = true; // mark as answered
   } else {
-    // అన్ని సరైన సమాధానాలు చూపించాలి
-    let htmlAnswers = answerlist[qno]
-    .slice(0, 2)
-    .map(ans => {
-      return `<span style="color:green;">${ans}</span>`;
-    });
-    let finalString = htmlAnswers.join(", ");
-    result.innerHTML = `❌ Wrong answer! <br> ✅ సరైన సమాధానాలు: ${finalString}`;
+    result.innerHTML = `❌ Wrong answer!<br>✅ సరైన సమాధానం: <span style="color:green;">${answerlist[qno][0]}</span>`;
+    result.style.color = "red";
   }
 
-  // 4️⃣ Score update
+  answered[qno] = true;
+  input.disabled = true;
   document.getElementById("scoreBoard").textContent = "Score: " + score;
-  return false;
-}
 
+  // ⭐ Save every time
+  saveScoreToFirebase();
+  return false;
+};
+</script>
 

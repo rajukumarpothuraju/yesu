@@ -7,6 +7,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"></link>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Bungee&family=Dancing+Script:wght@400..700&family=Mogra&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -111,14 +114,141 @@ header h1 {
   }
 }
 
+.cross{
+  width: 40px;
+  height: 40px;
+}
+.btn btn-primary{
+  margin: 10px;
+}
+
+.navbar .navbar-brand {
+  color: #7c7676 !important;  /* white text */
+  font-size: 28px;            /* big */
+  font-weight: bold;          /* bold */
+  letter-spacing: 1px;        /* spacing between letters */
+  margin: 10px;
+}
+
+.about-btn {  /* left nundi distance */        /* mighata content meeda kanipinchali */
+  padding: 10px ;
+  margin-left: 20px !important;
+  list-style-type: none;
+  font-size: 10px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  border-radius: 50px;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: inline-block;
+}
+
+
+
+.about-btn:hover {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c); /* reverse gradient */
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.navbar {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+.peddaimg{
+  width:auto;
+  height:100px
+}
+
+.footer{
+  background-color: black;
+  color: white;
+  height:600px;
+  width:100%;
+}
+.sampoimg{
+  width:200px;
+  height:150px;
+  margin-top: 30px;
+  
+
+}
+.text {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  font-style: normal;
+  color: #FFD700; /* ✨ Gold color */
+  text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.5); /* slight glow */
+}
+
+
 
 
   </STYLE>
   
   <section class="bg-dark">
-    <header class="d-flex justify-content-center bg-dark mt-0">
-      <h1 class="text-danger "><strong>Anil Bible Quiz</strong></h1>
-    </header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand mx-auto "style="color:red; font-weight: bold;font-size: 50px;"  href="#"><strong>House of prayer</strong>
+  <img class="cross" src="jesus cross update.png" alt="">  
+  </a>
+  <ul style="list-style-type: none;">
+     <li class="nav-item">
+          <!-- modal trigger -->
+          <a class="nav-link about-btn m-4"id="about" href="#"  data-bs-toggle="modal" data-bs-target="#aboutModal">
+            contact us for prayer request<br>
+               <h1 class="text-center"   style="font-size: 10px;">click here</h1>
+          </a>
+
+  
+      </ul>
+  </div>
+</nav>
+
+<div class="modal fade " " id="aboutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content"style="background-color: #fffbea; border-radius: 15px;">
+      <div class="modal-header ">
+        <h5 class="modal-title w-100 text-center text-dark ">contact us</h5>
+
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body w-100 text-center text-dark ">
+        <img class="peddaimg" src="peddanangaru,jpg.jpg" alt="">
+        <h1 style="font-size: small; margin-top: 5px;"> పాస్టర్ సంపూర్ణరావు గారు</h1>
+        <p>
+           మీకు ఏవైనా ప్రార్థన అవసరాలు ఉంటే, దయచేసి కింద రాయండి.  
+    మేము మీకోసం ప్రార్థిస్తాము.
+        </p>
+       <div class="mt-4 p-3" style="background:#fff8e1; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+  <h5 class="text-center" style="color:#d84315; font-weight:bold;">🙏 ప్రార్థన అవసరాలు</h5>
+  <p class="text-center" style="font-size:15px; color:#4a148c;">
+    మీకు ఏవైనా ప్రార్థన అవసరాలు ఉంటే, దయచేసి మీ పేరుతో కలిపి కింద రాయండి.  
+    మేము మీకోసం ప్రార్థిస్తాము.
+  </p>
+
+  <!-- Name input -->
+  <div class="mb-3">
+    <label for="nameInput" class="form-label" style="font-weight:bold;">మీ పేరు:</label>
+    <input type="text" id="nameInput" class="form-control" placeholder="ఇక్కడ మీ పేరు రాయండి">
+  </div>
+
+  <!-- Prayer request input -->
+  <div class="mb-3">
+    <label for="prayerInput" class="form-label" style="font-weight:bold;">మీ ప్రార్థన అవసరం:</label>
+    <textarea id="prayerInput" class="form-control" rows="3" placeholder="ఇక్కడ మీ ప్రార్థన అవసరాన్ని రాయండి..."></textarea>
+  </div>
+
+  <button  id="submitPrayer"  class="btn btn-primary w-100">Submit Prayer Request</button>
+</div>
+
+        
+      </div>
+   
+    
   </section>
   <section class="carousel mb-1">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -144,33 +274,37 @@ header h1 {
 </div>
   </section>
   <div CLASS="score mt-0">
-      <h1 class="text-center"style="color:blue;">THIS YOUR BIBLE QUIZ SCORE BOARD TOTAL 60 MARKS</h1>
-    <p id="scoreBoard"class="text-center">Your Total Score: 0</p>
+      <h1 class="text-center"style="color:blue;">THIS YOUR BIBLE QUIZ SCORE BOARD TOTAL 50 MARKS</h1>
+   <p id="scoreBoard" class="text-center">Your Total Score: 0</p>
 
-    <div class="text-center mt-4">
-  <button class="btn btn-success" onclick="saveScoreToFirebase()">🎯 Save My Total Score click here</button>
+      
+
+   
+    
 </div>
     </div>
+ <section>
   <section>
-   <div class="container-fluid">
+  <div class="container-fluid">
+
+
     <form onsubmit="return checkanswer(1)">
-      <div class="mb-3 mt-3">
-     <label for="question1" class="form-label">1️⃣బైబిల్‌లో మొదటి పుస్తకానికి పేరు ఏమిటి?</label>
-     <input type="text" class="form-control" id="question1" placeholder="Enter your answer">
-     <p id="result1"></p> 
-    
-     <div id="" class="d-flex justify-content-end">
+  <div class="mb-3">
+    <label for="question1" class="form-label">1️⃣ సృష్టి జరిగిన రోజులలో ఎన్ని రోజున "మంచిదని" అని దేవుడు చెప్పలేదు? (2వ రోజు 1:6–8)</label>
+    <input type="text" class="form-control" id="question1" placeholder="Enter your answer">
+    <p id="result1"></p>
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
-     </div>
     </div>
+  </div>
 </form>
 
 <form onsubmit="return checkanswer(2)">
   <div class="mb-3">
-    <label for="question2" class="form-label">2️⃣ దేవుడు మొదటి రోజు ఏది సృష్టించాడు?</label>
+    <label for="question2" class="form-label">2️⃣ ఆదికాండం గ్రంథకర్త ఎవరు?</label>
     <input type="text" class="form-control" id="question2" placeholder="Enter your answer">
     <p id="result2"></p>
-    <div id="" class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
@@ -178,10 +312,10 @@ header h1 {
 
 <form onsubmit="return checkanswer(3)">
   <div class="mb-3">
-    <label for="question3" class="form-label">3️⃣బైబిల్‌లో మొదటి మనిషి ఎవరు? </label>
+    <label for="question3" class="form-label">3️⃣ ఆదికాండములో ఎన్ని వచనాలున్నవి?</label>
     <input type="text" class="form-control" id="question3" placeholder="Enter your answer">
     <p id="result3"></p>
-    <div id="" class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
@@ -189,22 +323,21 @@ header h1 {
 
 <form onsubmit="return checkanswer(4)">
   <div class="mb-3">
-    <label for="question4" class="form-label">4️⃣ బైబిల్‌లో మొదటి స్త్రీ ఎవరు? </label>
+    <label for="question4" class="form-label">4️⃣ ఆదికాండములో ముఖ్యమైన వచనమేది?</label>
     <input type="text" class="form-control" id="question4" placeholder="Enter your answer">
     <p id="result4"></p>
-    <div id="" class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
 </form>
-     
 
 <form onsubmit="return checkanswer(5)">
   <div class="mb-3">
-    <label for="question5" class="form-label">5️⃣ బైబిల్‌లో మొదటి హంతకుడు ఎవరు?</label>
+    <label for="question5" class="form-label">5️⃣ కయీను ప్రభువు సముఖము నుండి వెడలి ఏ దేశమున నివసించెను?</label>
     <input type="text" class="form-control" id="question5" placeholder="Enter your answer">
     <p id="result5"></p>
-    <div id="" class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
@@ -212,7 +345,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(6)">
   <div class="mb-3">
-    <label for="question6" class="form-label">6️⃣ దేవుడు నోహుతో చేసిన ఒడంబడికకు సూచకము ఏమిటి?</label>
+    <label for="question6" class="form-label">6️⃣ పిల్లన గ్రోవిని, సితారను మ్రోగించువారికి మూల పురుషుడెవరు?</label>
     <input type="text" class="form-control" id="question6" placeholder="Enter your answer">
     <p id="result6"></p>
     <div class="d-flex justify-content-end">
@@ -223,7 +356,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(7)">
   <div class="mb-3">
-    <label for="question7" class="form-label">7️⃣ ఆదాము భార్య పేరు ఏమిటి?</label>
+    <label for="question7" class="form-label">7️⃣ నోవాహు అను పేరుకు అర్థమేమి?</label>
     <input type="text" class="form-control" id="question7" placeholder="Enter your answer">
     <p id="result7"></p>
     <div class="d-flex justify-content-end">
@@ -234,7 +367,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(8)">
   <div class="mb-3">
-    <label for="question8" class="form-label">8️⃣ కయీను చంపిన తమ్ముడు ఎవరు?</label>
+    <label for="question8" class="form-label">8️⃣ నోవాహు ఏ చెట్టు కర్రతో ఓడను నిర్మించెను?</label>
     <input type="text" class="form-control" id="question8" placeholder="Enter your answer">
     <p id="result8"></p>
     <div class="d-flex justify-content-end">
@@ -245,7 +378,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(9)">
   <div class="mb-3">
-    <label for="question9" class="form-label">9️⃣ దేవుడు నోహుకు నిర్మింపమని చెప్పినది ఏమిటి?</label>
+    <label for="question9" class="form-label">9️⃣ ఓడ ఎప్పుడు నిలిచెను?</label>
     <input type="text" class="form-control" id="question9" placeholder="Enter your answer">
     <p id="result9"></p>
     <div class="d-flex justify-content-end">
@@ -256,7 +389,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(10)">
   <div class="mb-3">
-    <label for="question10" class="form-label">🔟 నోహుకు పుట్టిన ముగ్గురు కుమారులలో ఒకరి పేరు చెప్పు.</label>
+    <label for="question10" class="form-label">🔟 పీషోను నది ఏ ప్రాంతమున ప్రవహించుచున్నది?</label>
     <input type="text" class="form-control" id="question10" placeholder="Enter your answer">
     <p id="result10"></p>
     <div class="d-flex justify-content-end">
@@ -265,9 +398,14 @@ header h1 {
   </div>
 </form>
 
+<!-- ఇదే pattern లో 11 నుండి 46 వరకు కూడా ఉంది.
+   length కారణంగా మొత్తం ఇక్కడ చూపడం కష్టం,
+   కానీ నేను నీకు **full HTML file** తయారు చేసి ఇవ్వగలను.
+   చెప్పు, నేను పూర్తిగా generate చేసి ఇస్తాను. -->
+
 <form onsubmit="return checkanswer(11)">
   <div class="mb-3">
-    <label for="question11" class="form-label">1️⃣1️⃣ బాబేలు గోపురము కట్టిన ప్రజల ప్రధాన ఉద్దేశ్యం ఏమిటి?</label>
+    <label for="question11" class="form-label">1️⃣1️⃣ దేవుని దృష్టిలో పరాక్రమముగల వేటగాడు ఎవరు?</label>
     <input type="text" class="form-control" id="question11" placeholder="Enter your answer">
     <p id="result11"></p>
     <div class="d-flex justify-content-end">
@@ -276,9 +414,11 @@ header h1 {
   </div>
 </form>
 
+<!-- ఇదే styleను కొనసాగిస్తూ, మిగతా 12 నుండి 46 వరకూ కూడా ఇలాగే రాసి ఇస్తున్నాను -->
+
 <form onsubmit="return checkanswer(12)">
   <div class="mb-3">
-    <label for="question12" class="form-label">1️⃣2️⃣ అబ్రాము భార్య పేరు ఏమిటి?</label>
+    <label for="question12" class="form-label">1️⃣2️⃣ శొదోమరాజు అబ్రామును కలిసికొనుటకు ఏ లోయకు వెళ్ళెను?</label>
     <input type="text" class="form-control" id="question12" placeholder="Enter your answer">
     <p id="result12"></p>
     <div class="d-flex justify-content-end">
@@ -287,9 +427,10 @@ header h1 {
   </div>
 </form>
 
+
 <form onsubmit="return checkanswer(13)">
   <div class="mb-3">
-    <label for="question13" class="form-label">1️⃣3️⃣ అబ్రాహాముకు వాగ్దాన కుమారుడు ఎవరు?</label>
+    <label for="question13" class="form-label">1️⃣3️⃣ ఎవరికీ అబ్రహాము దశమ భాగము నిచ్చెను?</label>
     <input type="text" class="form-control" id="question13" placeholder="Enter your answer">
     <p id="result13"></p>
     <div class="d-flex justify-content-end">
@@ -300,7 +441,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(14)">
   <div class="mb-3">
-    <label for="question14" class="form-label">1️⃣4️⃣ సొదొమా పట్టణానికి ఏమి జరిగింది?</label>
+    <label for="question14" class="form-label">1️⃣4️⃣ జన్మించకముందే పేరు పెట్టమని సూచించబడిన మొదటి వ్యక్తి ఎవరు?</label>
     <input type="text" class="form-control" id="question14" placeholder="Enter your answer">
     <p id="result14"></p>
     <div class="d-flex justify-content-end">
@@ -311,7 +452,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(15)">
   <div class="mb-3">
-    <label for="question15" class="form-label">1️⃣5️⃣ లోటు భార్య ఏ రూపముగా మారింది?</label>
+    <label for="question15" class="form-label">1️⃣5️⃣ దేవుడు ఏ రాజుకు కలలో కనబడి సారా భార్య అని చెప్పెను?</label>
     <input type="text" class="form-control" id="question15" placeholder="Enter your answer">
     <p id="result15"></p>
     <div class="d-flex justify-content-end">
@@ -322,7 +463,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(16)">
   <div class="mb-3">
-    <label for="question16" class="form-label">1️⃣6️⃣ అబ్రాహాము అర్పించబోయిన కుమారుడు ఎవరు?</label>
+    <label for="question16" class="form-label">1️⃣6️⃣ లూజు నగరమునకు మరో పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question16" placeholder="Enter your answer">
     <p id="result16"></p>
     <div class="d-flex justify-content-end">
@@ -333,10 +474,10 @@ header h1 {
 
 <form onsubmit="return checkanswer(17)">
   <div class="mb-3">
-    <label for="question17" class="form-label">1️⃣7️⃣ ఇస్సాకు భార్య పేరు ఏమిటి?</label>
+    <label for="question17" class="form-label">1️⃣7️⃣ అడవిలో ఉష్ణ దారలను కనుగొన్నవాడు ఎవరు?</label>
     <input type="text" class="form-control" id="question17" placeholder="Enter your answer">
     <p id="result17"></p>
-    <div class="d-flex justify-content-end>
+    <div class="d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
@@ -344,7 +485,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(18)">
   <div class="mb-3">
-    <label for="question18" class="form-label">1️⃣8️⃣ ఇస్సాకు కి పుట్టిన జంట సోదరులు ఎవరు?</label>
+    <label for="question18" class="form-label">1️⃣8️⃣ యోసేపుకు ఫరో రాజు పెట్టిన మారుపేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question18" placeholder="Enter your answer">
     <p id="result18"></p>
     <div class="d-flex justify-content-end">
@@ -355,7 +496,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(19)">
   <div class="mb-3">
-    <label for="question19" class="form-label">1️⃣9️⃣ యాకోబు దేవుని దర్శించిన ప్రదేశం ఏమిటి?</label>
+    <label for="question19" class="form-label">1️⃣9️⃣ ఎవరు తన జన్మదినోత్సవమున విందు ఏర్పాటు చేసెను?</label>
     <input type="text" class="form-control" id="question19" placeholder="Enter your answer">
     <p id="result19"></p>
     <div class="d-flex justify-content-end">
@@ -366,7 +507,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(20)">
   <div class="mb-3">
-    <label for="question20" class="form-label">2️⃣0️⃣ యాకోబు మొదటి భార్య పేరు ఏమిటి?</label>
+    <label for="question20" class="form-label">2️⃣0️⃣ బెయేర్షెబా అను మాటకు అర్థము ఏమిటి?</label>
     <input type="text" class="form-control" id="question20" placeholder="Enter your answer">
     <p id="result20"></p>
     <div class="d-flex justify-content-end">
@@ -375,10 +516,9 @@ header h1 {
   </div>
 </form>
 
-
 <form onsubmit="return checkanswer(21)">
   <div class="mb-3">
-    <label for="question21" class="form-label">2️⃣1️⃣ యాకోబు రెండో భార్య పేరు ఏమిటి?</label>
+    <label for="question21" class="form-label">2️⃣1️⃣ ఎవరు సముద్రతీరమున నివసించునని యాకోబు చెప్పెను?</label>
     <input type="text" class="form-control" id="question21" placeholder="Enter your answer">
     <p id="result21"></p>
     <div class="d-flex justify-content-end">
@@ -389,7 +529,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(22)">
   <div class="mb-3">
-    <label for="question22" class="form-label">2️⃣2️⃣ యోసేపు తండ్రి ఎవరు?</label>
+    <label for="question22" class="form-label">2️⃣2️⃣ ఎవరు విడువబడిన లేడివంటివాడు?</label>
     <input type="text" class="form-control" id="question22" placeholder="Enter your answer">
     <p id="result22"></p>
     <div class="d-flex justify-content-end">
@@ -400,7 +540,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(23)">
   <div class="mb-3">
-    <label for="question23" class="form-label">2️⃣3️⃣ యోసేపు అన్నలు అతన్ని చూసిన వెంటనే అతన్ని ఎవరికి అమ్మేశారు?</label>
+    <label for="question23" class="form-label">2️⃣3️⃣ ఎవరు త్రోవలోని పామువంటివాడు, దారిలోని విషసర్పమువంటివాడు?</label>
     <input type="text" class="form-control" id="question23" placeholder="Enter your answer">
     <p id="result23"></p>
     <div class="d-flex justify-content-end">
@@ -411,7 +551,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(24)">
   <div class="mb-3">
-    <label for="question24" class="form-label">2️⃣4️⃣ యోసేపును అన్నదమ్ములు ఏ దేశానికి అమ్మారు?</label>
+    <label for="question24" class="form-label">2️⃣4️⃣ ఎవరు చీల్చునట్టి తోడేలువంటివాడు?</label>
     <input type="text" class="form-control" id="question24" placeholder="Enter your answer">
     <p id="result24"></p>
     <div class="d-flex justify-content-end">
@@ -422,7 +562,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(25)">
   <div class="mb-3">
-    <label for="question25" class="form-label">2️⃣5️⃣ యోసేపును ఎవరు కొనుగోలు చేశారు?</label>
+    <label for="question25" class="form-label">2️⃣5️⃣ అబ్రాహాము ఆ పొలమును ఎవరిదగ్గర కొనెను?</label>
     <input type="text" class="form-control" id="question25" placeholder="Enter your answer">
     <p id="result25"></p>
     <div class="d-flex justify-content-end">
@@ -433,7 +573,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(26)">
   <div class="mb-3">
-    <label for="question26" class="form-label">2️⃣6️⃣ యోసేపు తండ్రి యాకోబు అతనికి ఏ ప్రత్యేకమైన వస్త్రం ఇచ్చాడు? </label>
+    <label for="question26" class="form-label">2️⃣6️⃣ పదునుగల రాగిపని ముట్లన్నిటిని ఇనుప పనిముట్లన్నిటిని చేయువాడు ఎవరు?</label>
     <input type="text" class="form-control" id="question26" placeholder="Enter your answer">
     <p id="result26"></p>
     <div class="d-flex justify-content-end">
@@ -444,7 +584,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(27)">
   <div class="mb-3">
-    <label for="question27" class="form-label"> 2️⃣7️⃣ యోసేపు తమ్ముడు బెన్యామీను ఎవరి కుమారుడు?</label>
+    <label for="question27" class="form-label">2️⃣7️⃣ లెమెకు భార్యలు పేర్లు ఏమిటి?</label>
     <input type="text" class="form-control" id="question27" placeholder="Enter your answer">
     <p id="result27"></p>
     <div class="d-flex justify-content-end">
@@ -455,7 +595,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(28)">
   <div class="mb-3">
-    <label for="question28" class="form-label">2️⃣8️⃣ ఫరో కలను వివరించినవాడు ఎవరు?</label>
+    <label for="question28" class="form-label">2️⃣8️⃣ ఓడ ఎప్పుడు అరారాతు కొండల మీద నిలిచెను?</label>
     <input type="text" class="form-control" id="question28" placeholder="Enter your answer">
     <p id="result28"></p>
     <div class="d-flex justify-content-end">
@@ -466,7 +606,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(29)">
   <div class="mb-3">
-    <label for="question29" class="form-label">2️⃣9️⃣ ఈజిప్టులో పెద్ద అధికారి అయిన హిబ్రూ ఎవరు?</label>
+    <label for="question29" class="form-label">2️⃣9️⃣ ఇష్మాయేలు జ్యేష్ఠ కుమారుడు ఎవరు?</label>
     <input type="text" class="form-control" id="question29" placeholder="Enter your answer">
     <p id="result29"></p>
     <div class="d-flex justify-content-end">
@@ -477,7 +617,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(30)">
   <div class="mb-3">
-    <label for="question30" class="form-label">3️⃣0️⃣ యోసేపు ఎవరి ఇంట్లో దాసుడిగా పని చేశాడు?</label>
+    <label for="question30" class="form-label">3️⃣0️⃣ రగూయేలు తల్లి పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question30" placeholder="Enter your answer">
     <p id="result30"></p>
     <div class="d-flex justify-content-end">
@@ -486,9 +626,10 @@ header h1 {
   </div>
 </form>
 
+
 <form onsubmit="return checkanswer(31)">
   <div class="mb-3">
-    <label for="question31" class="form-label">3️⃣1️⃣ యాకోబు ప్రియమైన కుమారుడు ఎవరు?</label>
+    <label for="question31" class="form-label">3️⃣1️⃣ మూడు దినములలోగా ఫరో ఎవరి గురించి ఇలా చెప్పెను? (భక్ష్యకారుల అధిపతి)</label>
     <input type="text" class="form-control" id="question31" placeholder="Enter your answer">
     <p id="result31"></p>
     <div class="d-flex justify-content-end">
@@ -499,7 +640,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(32)">
   <div class="mb-3">
-    <label for="question32" class="form-label">3️⃣2️⃣ యోసేపు అన్నదమ్ములలో పెద్దవాడు ఎవరు?</label>
+    <label for="question32" class="form-label">3️⃣2️⃣ యోసేపు భార్య పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question32" placeholder="Enter your answer">
     <p id="result32"></p>
     <div class="d-flex justify-content-end">
@@ -510,7 +651,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(33)">
   <div class="mb-3">
-    <label for="question33" class="form-label">3️⃣3️⃣ యోసేపు తల్లి ఎవరు?</label>
+    <label for="question33" class="form-label">3️⃣3️⃣ యోసేపు భార్య ఎవరి కుమార్తె?</label>
     <input type="text" class="form-control" id="question33" placeholder="Enter your answer">
     <p id="result33"></p>
     <div class="d-flex justify-content-end">
@@ -521,7 +662,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(34)">
   <div class="mb-3">
-    <label for="question34" class="form-label">3️⃣4️⃣ బెన్యామీను తండ్రి ఎవరు?</label>
+    <label for="question34" class="form-label">3️⃣4️⃣ ఇశ్రాయేలీయులు ఐగుప్తుదేశమందలి ఏ ప్రదేశములో నివసించిరి?</label>
     <input type="text" class="form-control" id="question34" placeholder="Enter your answer">
     <p id="result34"></p>
     <div class="d-flex justify-content-end">
@@ -532,7 +673,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(35)">
   <div class="mb-3">
-    <label for="question35" class="form-label">3️⃣5️⃣ ఈజిప్టుకు వెళ్ళినప్పుడు యాకోబు ఎంతమంది కుమారులు ఉన్నారు?</label>
+    <label for="question35" class="form-label">3️⃣5️⃣ అమ్మోనీయులకు మూలపురుషుడుగా ఎంచబడిన వారు ఎవరు?</label>
     <input type="text" class="form-control" id="question35" placeholder="Enter your answer">
     <p id="result35"></p>
     <div class="d-flex justify-content-end">
@@ -543,7 +684,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(36)">
   <div class="mb-3">
-    <label for="question36" class="form-label">3️⃣6️⃣ యోసేపు పెద్ద కుమారుడు ఎవరు?</label>
+    <label for="question36" class="form-label">3️⃣6️⃣ రిబ్కా ఎవరి కుమార్తె?</label>
     <input type="text" class="form-control" id="question36" placeholder="Enter your answer">
     <p id="result36"></p>
     <div class="d-flex justify-content-end">
@@ -554,7 +695,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(37)">
   <div class="mb-3">
-    <label for="question37" class="form-label">3️⃣7️⃣ యోసేపు రెండవ కుమారుడు ఎవరు?</label>
+    <label for="question37" class="form-label">3️⃣7️⃣ ఏదెనులోనుండి బయలుదేరిన నది పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question37" placeholder="Enter your answer">
     <p id="result37"></p>
     <div class="d-flex justify-content-end">
@@ -565,7 +706,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(38)">
   <div class="mb-3">
-    <label for="question38" class="form-label">3️⃣8️⃣ అబ్రాహాము మేనల్లుడు ఎవరు?</label>
+    <label for="question38" class="form-label">3️⃣8️⃣ ఏ దేశపు బంగారము శ్రేష్ఠమైనది?</label>
     <input type="text" class="form-control" id="question38" placeholder="Enter your answer">
     <p id="result38"></p>
     <div class="d-flex justify-content-end">
@@ -576,7 +717,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(39)">
   <div class="mb-3">
-    <label for="question39" class="form-label">3️⃣9️⃣ యాకోబు సోదరుడు ఎవరు?</label>
+    <label for="question39" class="form-label">3️⃣9️⃣ రెండవ నది పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question39" placeholder="Enter your answer">
     <p id="result39"></p>
     <div class="d-flex justify-content-end">
@@ -587,7 +728,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(40)">
   <div class="mb-3">
-    <label for="question40" class="form-label">4️⃣0️⃣ ఇస్సాకు తండ్రి ఎవరు?</label>
+    <label for="question40" class="form-label">4️⃣0️⃣ అబ్రాహాము మృతిబొందిన తరువాత ఇస్సాకు ఎక్కడ కాపురముండెను?</label>
     <input type="text" class="form-control" id="question40" placeholder="Enter your answer">
     <p id="result40"></p>
     <div class="d-flex justify-content-end">
@@ -596,9 +737,9 @@ header h1 {
   </div>
 </form>
 
-  <form onsubmit="return checkanswer(41)">
+<form onsubmit="return checkanswer(41)">
   <div class="mb-3">
-    <label for="question41" class="form-label">4️⃣1️⃣ ఇస్సాకు భార్య ఎవరు?</label>
+    <label for="question41" class="form-label">4️⃣1️⃣ రిబ్కా దాది పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question41" placeholder="Enter your answer">
     <p id="result41"></p>
     <div class="d-flex justify-content-end">
@@ -609,7 +750,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(42)">
   <div class="mb-3">
-    <label for="question42" class="form-label">4️⃣2️⃣ ఇస్సాకు సోదరుడు ఎవరు?</label>
+    <label for="question42" class="form-label">4️⃣2️⃣ యాకోబు యాత్ర చేసిన సంవత్సరాలు ఎన్ని?</label>
     <input type="text" class="form-control" id="question42" placeholder="Enter your answer">
     <p id="result42"></p>
     <div class="d-flex justify-content-end">
@@ -620,7 +761,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(43)">
   <div class="mb-3">
-    <label for="question43" class="form-label">4️⃣3️⃣ యాకోబు మొదటి కుమారుడు ఎవరు?</label>
+    <label for="question43" class="form-label">4️⃣3️⃣ యూదా జ్యేష్ఠ కుమారుడు పేరు ఏమిటి?</label>
     <input type="text" class="form-control" id="question43" placeholder="Enter your answer">
     <p id="result43"></p>
     <div class="d-flex justify-content-end">
@@ -631,7 +772,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(44)">
   <div class="mb-3">
-    <label for="question44" class="form-label">4️⃣4️⃣ యాకోబు చివరి కుమారుడు ఎవరు?</label>
+    <label for="question44" class="form-label">4️⃣4️⃣ ఫరో యోసేపునకు ఏమని పేరు పెట్టెను?</label>
     <input type="text" class="form-control" id="question44" placeholder="Enter your answer">
     <p id="result44"></p>
     <div class="d-flex justify-content-end">
@@ -642,7 +783,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(45)">
   <div class="mb-3">
-    <label for="question45" class="form-label">4️⃣5️⃣ అబ్రాహాము భార్య ఎవరు?</label>
+    <label for="question45" class="form-label">4️⃣5️⃣ అబ్రాము హారానునుండి బయలుదేరినప్పుడు ఎంత వయసు గలవాడు?</label>
     <input type="text" class="form-control" id="question45" placeholder="Enter your answer">
     <p id="result45"></p>
     <div class="d-flex justify-content-end">
@@ -653,7 +794,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(46)">
   <div class="mb-3">
-    <label for="question46" class="form-label">4️⃣6️⃣ ఇష్మాయేలు తల్లి ఎవరు?</label>
+    <label for="question46" class="form-label">4️⃣6️⃣ రాహేలును ఎక్కడ పాతిపెట్టెను?</label>
     <input type="text" class="form-control" id="question46" placeholder="Enter your answer">
     <p id="result46"></p>
     <div class="d-flex justify-content-end">
@@ -662,9 +803,13 @@ header h1 {
   </div>
 </form>
 
+
+
+    
+
 <form onsubmit="return checkanswer(47)">
   <div class="mb-3">
-    <label for="question47" class="form-label">4️⃣7️⃣ ఇస్సాకు పుట్టిన చోటు ఏది?</label>
+    <label for="question47" class="form-label">4️⃣7️⃣యోసేపు ఎంత వయసులో చనిపోయెను? </label>
     <input type="text" class="form-control" id="question47" placeholder="Enter your answer">
     <p id="result47"></p>
     <div class="d-flex justify-content-end">
@@ -675,7 +820,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(48)">
   <div class="mb-3">
-    <label for="question48" class="form-label">4️⃣8️⃣ రిబ్కా తండ్రి ఎవరు?</label>
+    <label for="question48" class="form-label">4️⃣8️⃣అబ్రాహాము బెయేర్షెబాలో ఏ వృక్షమునాటెను? </label>
     <input type="text" class="form-control" id="question48" placeholder="Enter your answer">
     <p id="result48"></p>
     <div class="d-flex justify-content-end">
@@ -686,7 +831,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(49)">
   <div class="mb-3">
-    <label for="question49" class="form-label">4️⃣9️⃣ రిబ్కా అన్నయ్య ఎవరు?</label>
+    <label for="question49" class="form-label">4️⃣9️⃣ఇష్మాయేలు  సున్నతి చేయబడినప్పుడు అతడు ఎంత వయసు గలవాడు? </label>
     <input type="text" class="form-control" id="question49" placeholder="Enter your answer">
     <p id="result49"></p>
     <div class="d-flex justify-content-end">
@@ -697,7 +842,7 @@ header h1 {
 
 <form onsubmit="return checkanswer(50)">
   <div class="mb-3">
-    <label for="question50" class="form-label">5️⃣0️⃣ లాబాను తండ్రి ఎవరు?</label>
+    <label for="question50" class="form-label">5️⃣0️⃣ కయీను ఎక్కడ కాపురముండెను?</label>
     <input type="text" class="form-control" id="question50" placeholder="Enter your answer">
     <p id="result50"></p>
     <div class="d-flex justify-content-end">
@@ -706,113 +851,8 @@ header h1 {
   </div>
 </form>
 
-<form onsubmit="return checkanswer(51)">
-  <div class="mb-3">
-    <label for="question51" class="form-label">5️⃣1️⃣ లేయా సోదరి ఎవరు?</label>
-    <input type="text" class="form-control" id="question51" placeholder="Enter your answer">
-    <p id="result51"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
 
-<form onsubmit="return checkanswer(52)">
-  <div class="mb-3">
-    <label for="question52" class="form-label">5️⃣2️⃣ యాకోబు పెళ్లి చేసుకున్న ఇద్దరు సోదరీమణులు ఎవరు?</label>
-    <input type="text" class="form-control" id="question52" placeholder="Enter your answer">
-    <p id="result52"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
 
-<form onsubmit="return checkanswer(53)">
-  <div class="mb-3">
-    <label for="question53" class="form-label">5️⃣3️⃣ యోసేపు తమ్ముడు ఎవరు?</label>
-    <input type="text" class="form-control" id="question53" placeholder="Enter your answer">
-    <p id="result53"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(54)">
-  <div class="mb-3">
-    <label for="question54" class="form-label">5️⃣4️⃣ బెన్యామీను తల్లి ఎవరు?</label>
-    <input type="text" class="form-control" id="question54" placeholder="Enter your answer">
-    <p id="result54"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(55)">
-  <div class="mb-3">
-    <label for="question55" class="form-label">5️⃣5️⃣ ఇస్సాకు కి పుట్టిన కుమారులు ఎవరు?</label>
-    <input type="text" class="form-control" id="question55" placeholder="Enter your answer">
-    <p id="result55"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(56)">
-  <div class="mb-3">
-    <label for="question56" class="form-label">5️⃣6️⃣ యాకోబు ఏ చోట ladder (దేవుని దూతలు ఎక్కి దిగిన మెట్లు) కల కనాడు? </label>
-    <input type="text" class="form-control" id="question56" placeholder="Enter your answer">
-    <p id="result56"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(57)">
-  <div class="mb-3">
-    <label for="question57" class="form-label">5️⃣7️⃣ యాకోబు దేవునితో పోరాడిన తర్వాత ఇచ్చిన కొత్త పేరు ఏమిటి?</label>
-    <input type="text" class="form-control" id="question57" placeholder="Enter your answer">
-    <p id="result57"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(58)">
-  <div class="mb-3">
-    <label for="question58" class="form-label">  5️⃣8️⃣ యోసేపు అన్నదమ్ములు అతన్ని అమ్మడానికి ముందు ఏ బావిలో పడేశారు?</label>
-    <input type="text" class="form-control" id="question58" placeholder="Enter your answer">
-    <p id="result58"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(59)">
-  <div class="mb-3">
-    <label for="question59" class="form-label">5️⃣9️⃣ దినా తండ్రి ఎవరు?</label>
-    <input type="text" class="form-control" id="question59" placeholder="Enter your answer">
-    <p id="result59"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
-
-<form onsubmit="return checkanswer(60)">
-  <div class="mb-3">
-    <label for="question60" class="form-label">6️⃣0️⃣ లేయా కి పుట్టిన కుమారులు ఎవరు?</label>
-    <input type="text" class="form-control" id="question60" placeholder="Enter your answer">
-    <p id="result60"></p>
-    <div class="d-flex justify-content-end">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
   </div>
 </form>
 
@@ -820,19 +860,45 @@ header h1 {
 
 </div>
 </form>
+<section class="footer">
+  <div class="row" style="display:flex;align-items:center;">
+    <div class="col-12">
+      <img src="sampoorana garu.jpg" class="sampoimg img-fluid mx-auto d-block" alt="">
+      <h1 class="text-center text" >Pastor sampoorna rao garu</h1>
+      <p class="text-center">
+         1986 మే 19న దేవుని సేవలో అడుగుపెట్టి, ఎన్నో కష్టాలు ఎదురైనా, 
+    ఆయనతో పాటు <strong>వాళ్ల అమ్మగారు</strong> కలిసి ప్రభువులో సంఘాన్ని ప్రారంభించారు.  
+    ప్రారంభం చిన్నదైనా, ప్రభువు కృపతో అది పెద్ద ఆశీర్వాదంగా మారింది.ఈ రోజుకి ప్రభువు అనుగ్రహంతో నాలుగు సంఘాలు స్థాపించబడ్డాయి —  
+    కాకినాడ పరలోకపేట, ముక్తా నగర్, రామేశ్వరం మరియు పెదపూడి మండలం ఆచితాపురం.  
+    ఈ సంఘాలు ప్రభువు చేతిలో బలమైన ఆయుధాలుగా ఉపయోగించబడుతూ, 
+    అనేక మందికి దేవుని ప్రేమను, సత్యాన్ని, రక్షణను చేరవేస్తున్నాయి.పాస్టర్ సంపూర్ణరావు గారు మరియు వాళ్ల అమ్మగారు ఈ సేవలో నిరంతరం శ్రమిస్తూ, 
+    అనేక మంది జీవితాలలో ఆశీర్వాదాల విత్తనాలు నాటారు.  
+    <strong>ఇప్పుడు వాళ్ల అమ్మగారు మన మధ్య లేరు… అయినప్పటికీ, ధైర్యంగా, ప్రభువు కృపతో ముందుకు సాగుతూ, దేవుని సేవలో నిలబడి ఉన్నారు.</strong>
+     <strong>అలాగే ఆయనకి తోడుగా ఆయన సతీమణి స్వర్ణలత గారు ఎంతో సహకరిస్తూ, సేవలో భుజం తోడుగా నిలుస్తున్నారు.</strong>
+
+    
+      </p>
+      <p class="text-center">
+✨ ప్రభువుకు మహిమ కలుగును గాక ✨ <br>
+    <span style="font-size:20px;">ఆమేన్ ✝️</span>
+
+      </p>
+    </div>
+  </div>
+</section>
+
+
 
    </div> 
 
 
-
-  </section>
-  <script src="script.js"></script>
 <script type="module">
+  // ✅ Firebase Imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-  import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+  import { getDatabase, ref, set, push, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-  // Meeku already signup/login lo vunte ade config ikkada kuda veyyandi:
+  // ✅ Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
     authDomain: "new-bible-quiz-app.firebaseapp.com",
@@ -843,34 +909,244 @@ header h1 {
     appId: "1:686170969568:web:31d3e10ed615dba548c785"
   };
 
+  // ✅ Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getDatabase(app);
 
-  // Firebase lo score save cheyyadaniki function:
-  window.saveScoreToFirebase = function() {
-    const user = auth.currentUser;
+  // --------------------
+  // ✅ GLOBAL VARIABLES
+  // --------------------
+  let score = 0;
+  let answered = {};
+  const scoreBoard = document.getElementById("scoreBoard");
+  if (scoreBoard) scoreBoard.textContent = "Score: 0";
+
+  // --------------------
+  // ✅ Reset score every time page load
+  // --------------------
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      // Username kosam DB lo store chesina "name" teesukovali
-      const userRef = ref(db, 'users/' + user.uid);
-      onValue(userRef, (snapshot) => {
-        const data = snapshot.val();
-        let userName = (data && data.name) ? data.name : "";
-        // Update user data with score
-        update(userRef, {
-          score: score   // 'score' is your JS variable!
-        }).then(() => {
-          alert("your score will be submited to swarna latha garu");
-        }).catch(error => {
-          alert("Score save లో సమస్య: " + error.message);
-        });
-      }, { onlyOnce: true });
+      // 👉 login అయ్యిన వెంటనే reset
+      score = 0;
+      answered = {};
+      if (scoreBoard) scoreBoard.textContent = "Score: 0";
+
+      await set(ref(db, "scores/" + user.uid), {
+        score: 0,
+        timestamp: Date.now()
+      });
+
+      // 👉 అన్ని inputs unlock
+      document.querySelectorAll("input[id^='question']").forEach(inp => {
+        inp.disabled = false;
+        inp.value = "";
+      });
+      document.querySelectorAll("button[type='submit']").forEach(btn => {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      });
+
     } else {
-      alert("Login అవ్వలేదు! ముందుగా Login అవ్వాలి.");
+      alert("⚠️ ముందుగా Login అవ్వాలి!");
+      window.location.href = "login.html";
     }
+  });
+
+  // --------------------
+  // ✅ Save score to firebase
+  // --------------------
+  function saveScoreToFirebase() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const userRef = ref(db, 'users/' + user.uid);
+    update(userRef, {
+      score: score,
+      submittedAt: new Date().toLocaleString()
+    })
+      .then(() => console.log("✅ Score updated in users node!"))
+      .catch((err) => console.error("❌ Error updating score in users node:", err));
+  }
+
+  // --------------------
+  // ✅ Levenshtein helper (fuzzy match)
+  // --------------------
+  function levenshtein(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, () => []);
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        matrix[i][j] = a[i - 1] === b[j - 1]
+          ? matrix[i - 1][j - 1]
+          : Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+      }
+    }
+    return matrix[a.length][b.length];
+  }
+
+  // --------------------
+  // ✅ ANSWERS LIST
+  // --------------------
+  
+  const answerlist = {
+  1: ["2వ రోజు (1:6-8)","2 రోజు","రెండవ రోజు","2nd day","second day","rendova roju"],
+  2: ["మోషే (ఆదికాండము గ్రంథకర్త)","moshe","moses"],
+  3: ["1533 (మొత్తం వచనాలు)","ఒకవేలు ఐదు వందలు ముప్పైమూడు","1533 verses"],
+  4: ["ఆదికాండము 3:15 (ముఖ్యమైన వచనం)","genesis 3:15","3:15","మూడవ అధ్యాయం 15వ వచనం"],
+  5: ["నోదు (4:16)","nod","nothu","nodo"],
+  6: ["యూబాలు (4:21)","jubal","yubalu"],
+  7: ["ఓదార్పు (5:29)","comfort","odaarpu","odarp"],
+  8: ["చితిసారకపు చెట్టు (6:14)","gopher wood","gofor","gopher","chitisarapu"],
+  9: ["ఏడవ నెల 17వ రోజు (8:4)","7th month 17th day","seventh month","17వ రోజు"],
+  10: ["హవీలా (2:11)","havila","havilah"],
+  11: ["నిమ్రోదు (10:8)","nimrod","nimrodhu"],
+  12: ["షావే లోయ (14:17)","shaveh valley","shave","shawe"],
+  13: ["మెల్కీసెదెకు (14:20)","melchizedek","melkisedeku"],
+  14: ["యిష్మాయేలు (16:11)","ishmael","ishmail"],
+  15: ["అబీమెలెకు (20:2,3)","abimelech","abimelek"],
+  16: ["బేతేలు (28:19)","bethel","betelu"],
+  17: ["అనా (36:24)","anah","ana"],
+  18: ["జప్నత్ప నేహు (41:44,45)","zaphnath paaneah","zapnath","japnathpanehu"],
+  19: ["ఫరోరాజు (40:20)","pharaoh","pharo","paro"],
+  20: ["సప్తజల ధారలు కలిగిన బావి (46:1)","beersheba","beer sheba","seven wells"],
+  21: ["జెబూలూను (49:13)","zebulun","jebulunu"],
+  22: ["నఫ్తాలి (49:21)","naphtali","nafthali"],
+  23: ["దాసు (49:17)","dan","daasu"],
+  24: ["బెన్యామీను (49:27)","benjamin","benyamin","benyaminu"],
+  25: ["హిత్తీయుడు ఎఫ్రోను (23:16)","ephron","hitthiyudu","hethite ephron"],
+  26: ["తూబల్కయీను (4:22)","tubal-cain","tubal kayin","tubal"],
+  27: ["ఆదా, సిల్లా (4:19)","adha","zilla","adah","zillah"],
+  28: ["ఏడవ నెల పదియేడవ రోజు (8:4)","7th month 17th day","seventeenth","17వ రోజు"],
+  29: ["నేబాయోతు (25:13)","nebaoth","nebayoth"],
+  30: ["బాశెమతు (36:4)","bashemath","basemath"],
+  31: ["భక్ష్యకారుల అధిపతి (40:16-19)","chief baker","baker head","bhakshyakaarula adhipathi"],
+  32: ["ఆసెనతు (46:20)","asenath","asenatu"],
+  33: ["పోతీఫెరు (46:20)","potiphera","potipherah","potipheru","ఓనుకు యాజకుడు"],
+  34: ["గోషెను (47:27)","goshen","gosenu"],
+  35: ["బెన్నమ్మి (19:38)","ben-ammi","benammi"],
+  36: ["బెతూయేలు (24:15)","bethuel","bethuyel","bethuvel"],
+  37: ["పీషోను (2:11)","pishon","pison","peeshonu"],
+  38: ["హవీలా (2:11)","havila","havilah"],
+  39: ["గీహోను (2:13)","gihon","gihonu"],
+  40: ["బేయేర్ లహాయిరోయి (25:11)","beer-lahai-roi","beer lahai roi","bayyer lahairoi"],
+  41: ["దెబోరా (35:8)","deborah","debora"],
+  42: ["నూట ముప్పది (47:9)","130","130 years","nootu muppadi"],
+  43: ["ఏరు (38:6)","er","eru","airu"],
+  44: ["జప్నత్ప నేహు (41:45)","zaphnath paaneah","zapnath"],
+  45: ["డెబ్బది ఐదు సంవత్సరములు (12:4)","75 years","debbaidi aidu","75"],
+  46: ["బేత్లెహేము ఎఫ్రాతా మార్గమున (48:7)","bethlehem","efratha road","bethlehem ephrath"],
+  47: ["నూటపది సంవత్సరములు (50:26)","110 years","110","nootapadi samvatsaralu"],
+  48: ["పిచుల వృక్షము (21:33)","pichula vrukshamu","ఎసెల్ చెట్టు","eshel tree","eshel","esel","tamarisk tree","tamarisk"],
+  49: ["పదమూడు సంవత్సరములు (17:25)","13 years","13","padamoodu samvatsaralu","పదమూడేళ్ళు"],
+  50: ["నోదు (4:16)","nod","nothu","nodo","nodu"]
+};
+
+
+  // --------------------
+  // ✅ CHECKANSWER
+  // --------------------
+  window.checkanswer = function (qno) {
+    const input = document.getElementById("question" + qno);
+    const result = document.getElementById("result" + qno);
+    let userAnswer = input.value.trim().toLowerCase();
+
+    if (answered[qno]) {
+      result.textContent = "🔒 ఇప్పటికే submit చేశారు!";
+      result.style.color = "blue";
+      return false;
+    }
+    if (userAnswer === "") {
+      result.textContent = "❌ దయచేసి సమాధానం ఇవ్వండి";
+      result.style.color = "red";
+      return false;
+    }
+
+    let isCorrect = false;
+    for (let ans of (answerlist[qno] || [])) {
+      let cleanAns = ans.toLowerCase().trim();
+      if (cleanAns === userAnswer || levenshtein(cleanAns, userAnswer) <= 2) {
+        isCorrect = true;
+        break;
+      }
+    }
+
+    if (isCorrect) {
+      result.textContent = "✅ సరైన సమాధానం!";
+      result.style.color = "green";
+      score++;
+    } else {
+      result.innerHTML = `❌ Wrong!<br>✅ సరైన సమాధానం: <span style="color:green;">${(answerlist[qno] || [""])[0]}</span>`;
+      result.style.color = "red";
+    }
+
+    answered[qno] = true;
+    input.disabled = true;
+    if (scoreBoard) scoreBoard.textContent = "Score: " + score;
+    saveScoreToFirebase(); // ⭐ ఇక్కడ users node కి update అవుతుంది
+    return false;
+  };
+
+  // --------------------
+  // ✅ PRAYER REQUEST SUBMIT
+  // --------------------
+  const prayerBtn = document.getElementById("submitPrayer");
+  if (prayerBtn) {
+    prayerBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const nameVal = document.getElementById("nameInput").value.trim();
+      const prayerVal = document.getElementById("prayerInput").value.trim();
+      if (!nameVal || !prayerVal) {
+        alert("🙏 దయచేసి మీ పేరు మరియు ప్రార్థన అవసరాన్ని రాయండి.");
+        return;
+      }
+      prayerBtn.disabled = true;
+      prayerBtn.textContent = "⏳ Sending...";
+
+      const prayerRef = push(ref(db, "prayerRequests"));
+      set(prayerRef, {
+        uid: auth.currentUser ? auth.currentUser.uid : "guest",
+        name: nameVal,
+        prayer: prayerVal,
+        submittedAt: new Date().toLocaleString()
+      })
+        .then(() => {
+          alert("✅ మీ ప్రార్థన విజయవంతంగా పంపబడింది!");
+          document.getElementById("nameInput").value = "";
+          document.getElementById("prayerInput").value = "";
+          prayerBtn.disabled = false;
+          prayerBtn.textContent = "Submit Prayer";
+        })
+        .catch((err) => {
+          alert("❌ Error: " + err.message);
+          prayerBtn.disabled = false;
+          prayerBtn.textContent = "Submit Prayer";
+        });
+    });
   }
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+</section>
+ <script type="module" src="script.js"></script>
+
+ 
 </body>
 </html>
-

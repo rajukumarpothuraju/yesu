@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz & Prayer Requests</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-3">
+  <h1 class="text-center mb-4">📊 Quiz Results</h1>
+  <table class="table table-bordered mb-5">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Score</th>
+        <th>Submitted At</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="resultsTable"></tbody>
+  </table>
+
+  <!-- 🆕 Prayer Requests Table -->
+  <h1 class="text-center mb-4">🙏 Prayer Requests</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>పేరు</th>
+        <th>ప్రార్థన అవసరం</th>
+        <th>పంపిన సమయం</th>
+        <th>స్థితి</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody id="prayerTable"></tbody>
+  </table>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
+      authDomain: "new-bible-quiz-app.firebaseapp.com",
+      databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
+      projectId: "new-bible-quiz-app",
+      storageBucket: "new-bible-quiz-app.firebasestorage.app",
+      messagingSenderId: "686170969568",
+      appId: "1:686170969568:web:31d3e10ed615dba548c785"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // 🔥 Delete functions
+    function deleteUser(uid) {
+      if (confirm("❌ ఈ user data ని delete చేయాలా?")) {
+        remove(ref(db, 'users/' + uid))
+          .then(() => alert("✅ Deleted Successfully"))
+          .catch(err => alert("❌ Error: " + err.message));
+      }
+    }
+
+    function deletePrayer(id) {
+      if (confirm("❌ ఈ prayer request ని delete చేయాలా?")) {
+        remove(ref(db, 'prayerRequests/' + id))
+          .then(() => alert("✅ Prayer Deleted"))
+          .catch(err => alert("❌ Error: " + err.message));
+      }
+    }
+
+    // ✅ Fetch users
+    const usersRef = ref(db, 'users');
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      const tableBody = document.getElementById('resultsTable');
+      tableBody.innerHTML = '';
+      for (let uid in data) {
+        const user = data[uid];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${user.name || '(No name)'}</td>
+          <td>${user.email || '(No email)'}</td>
+          <td>${user.score || 0}</td>
+          <td>${user.submittedAt || '-'}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteUser('${uid}')">Delete</button></td>
+        `;
+        tableBody.appendChild(tr);
+      }
+    });
+
+    // ✅ Fetch prayerRequests
+    const prayerRef = ref(db, 'prayerRequests');
+    onValue(prayerRef, (snapshot) => {
+      const data = snapshot.val();
+      const prayerBody = document.getElementById('prayerTable');
+      prayerBody.innerHTML = '';
+      for (let id in data) {
+        const req = data[id];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${req.name || '(పేరు లేదు)'}</td>
+          <td>${req.prayer || '(ప్రార్థన లేదు)'}</td>
+          <td>${req.submittedAt || '-'}</td>
+          <td>🙏</td>
+          <td><button class="btn btn-danger btn-sm" onclick="deletePrayer('${id}')">Delete</button></td>
+        `;
+        prayerBody.appendChild(tr);
+      }
+    });
+
+    // 🛠️ Expose delete functions to window
+    window.deleteUser = deleteUser;
+    window.deletePrayer = deletePrayer;
+  </script>
+</body>
+</html>
