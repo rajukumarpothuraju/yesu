@@ -162,13 +162,24 @@ header h1 {
   width:auto;
   height:100px
 }
-
-.footer{
+.footer {
   background-color: black;
   color: white;
-  height:600px;
-  width:100%;
+  width: 100%;
+  height: 600px;
+  margin: 0;          /* footer కి బయట gap ఉండకుండా */
+  padding: 0;         /* లోపల unwanted gap ఉంటే తొలగించడానికి */
 }
+
+.footer .row {
+  margin: 0;          /* row కి bootstrap side gutter remove చేయడానికి */
+}
+
+.footer .col-12 {
+  padding: 0;         /* column side padding remove చేయడానికి */
+}
+
+
 .sampoimg{
   width:200px;
   height:150px;
