@@ -32,12 +32,21 @@
   </style>
 </head>
 <body>
-  <h1 class="text-center mt-4"><strong>House <span class="text-danger">of </span> <span class="text-dark">prayer</span></strong></h1>
+  <h1 class="text-center mt-4">
+    <strong>House <span class="text-danger">of</span> <span class="text-dark">Prayer</span></strong>
+  </h1>
 
   <!-- Sign-In Box -->
   <div class="signin-box">
     <div class="signin-title">Sign In</div>
     <form id="loginForm" autocomplete="off">
+      <!-- 🔥 Name Input -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Your Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+        <p id="nameError" class="text-danger" style="font-size:13px;"></p>
+      </div>
+
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
         <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
@@ -61,8 +70,9 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+    import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-    // Firebase Config
+    // ✅ Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
       authDomain: "new-bible-quiz-app.firebaseapp.com",
@@ -73,26 +83,29 @@
       appId: "1:686170969568:web:31d3e10ed615dba548c785"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    // Form submit
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', async function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      // Get values
+      const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
+
+      const nameError = document.getElementById('nameError');
       const emailError = document.getElementById('emailError');
       const passError = document.getElementById('passError');
 
-      // Clear errors
+      // clear errors
+      nameError.textContent = '';
       emailError.textContent = '';
       passError.textContent = '';
 
-      // Simple validation
+      if (!name) {
+        nameError.textContent = "Name is required";
+        return;
+      }
       if (!email) {
         emailError.textContent = "Email is required";
         return;
@@ -102,13 +115,24 @@
         return;
       }
 
-      // Firebase sign in
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful!");
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // 👉 Save to local storage
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userEmail", user.email);
+
+        // 👉 Update DB
+        await update(ref(db, "users/" + user.uid), {
+          name: name,
+          email: user.email,
+          lastLogin: new Date().toISOString()
+        });
+
+        alert("✅ Login successful & name saved in DB!");
         window.location.href = "bible.html";
       } catch (error) {
-        // Show error message
         if (error.code === "auth/user-not-found") {
           emailError.textContent = "No account found with this email";
         } else if (error.code === "auth/wrong-password") {
@@ -121,3 +145,4 @@
   </script>
 </body>
 </html>
+
