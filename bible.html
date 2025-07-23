@@ -1149,6 +1149,25 @@ header h1 {
 
 
 
+  <!-- ✅ WhatsApp → Chrome redirect logic -->
+  <script>
+    window.addEventListener("load", function () {
+      const ua = navigator.userAgent.toLowerCase();
+      const isInAppBrowser =
+        ua.includes("fbav") || ua.includes("instagram") || ua.includes("whatsapp");
+      const isChrome = ua.includes("chrome");
+
+      if (isInAppBrowser && !isChrome) {
+        alert("⚠ For best experience, this site will open in Chrome browser.");
+        const url = window.location.href;
+        const chromeIntentUrl =
+          "intent://" + url.replace(/^https?:\/\//, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+        window.location.href = chromeIntentUrl;
+      }
+    });
+  </script>
+
+
 
 
 
