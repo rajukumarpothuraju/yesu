@@ -12,7 +12,8 @@
   <table class="table table-bordered mb-5">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>పేరు</th>
+        <th>ఊరు</th>
         <th>Email</th>
         <th>Score</th>
         <th>Submitted At</th>
@@ -47,7 +48,7 @@
       authDomain: "new-bible-quiz-app.firebaseapp.com",
       databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
       projectId: "new-bible-quiz-app",
-      storageBucket: "new-bible-quiz-app.firebasestorage.app",
+      storageBucket: "new-bible-quiz-app.appspot.com",
       messagingSenderId: "686170969568",
       appId: "1:686170969568:web:31d3e10ed615dba548c785"
     };
@@ -73,7 +74,7 @@
       }
     }
 
-    // ✅ Fetch users
+    // ✅ Fetch users (fullName, village, email, score)
     const usersRef = ref(db, 'users');
     onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
@@ -83,8 +84,9 @@
         const user = data[uid];
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${user.name || '(No name)'}</td>
-          <td>${user.email || '(No email)'}</td>
+          <td>${user.fullName || '(పేరు లేదు)'}</td>
+          <td>${user.village || '(ఊరు లేదు)'}</td>
+          <td>${user.email || '(Email లేదు)'}</td>
           <td>${user.score || 0}</td>
           <td>${user.submittedAt || '-'}</td>
           <td><button class="btn btn-danger btn-sm" onclick="deleteUser('${uid}')">Delete</button></td>
@@ -119,3 +121,4 @@
   </script>
 </body>
 </html>
+

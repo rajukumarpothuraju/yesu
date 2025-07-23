@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +19,9 @@
     <div class="col-lg-6 p-5 mx-auto" style="box-shadow:0 4px 8px rgba(0,0,0,0.2),0 6px 20px rgba(0,0,0,0.19);">
       <h1 class="text-center mb-3 mt-0"><strong>House of prayer</strong></h1>
 
-      <form onsubmit="return validate()">
+      <form id="signupForm">
         <input id="username" type="text" name="username" placeholder="enter name" class="form-control mb-3">
-        <p id="error"></p>
+        <p id="usernameError"></p>
 
         <input id="email" type="email" name="email" placeholder="enter email" class="form-control mb-3">
         <p id="EmailError"></p>
@@ -44,65 +43,105 @@
     </div>
   </section>
 
-  <script src="signup.js"></script>
+  <script>
+    function validatesignin() {
+      let validate = true;
 
-  <!-- ✅ Firebase & Form Script -->
+      // USERNAME
+      let usernameinput = document.getElementById("username");
+      let username = usernameinput.value.trim();
+      let usernameError = document.getElementById("usernameError");
+
+      if (username === "") {
+        usernameError.textContent = "username is mandatory ❌";
+        usernameError.style.color = "red";
+        usernameinput.style.border = "1px solid red";
+        usernameinput.style.boxShadow = "0 0 10px red";
+        validate = false;
+      } else {
+        usernameError.textContent = "✅";
+        usernameError.style.color = "green";
+        usernameinput.style.border = "1px solid green";
+        usernameinput.style.boxShadow = "0 0 10px green";
+      }
+
+      // PASSWORD
+      let passwordinput = document.getElementById("password");
+      let password = passwordinput.value.trim();
+      let passwordError = document.getElementById("passError");
+
+      if (password === "") {
+        passwordError.textContent = "password is mandatory ❌";
+        passwordError.style.color = "red";
+        passwordinput.style.border = "1px solid red";
+        passwordinput.style.boxShadow = "0 0 10px red";
+        validate = false;
+      } else {
+        passwordError.textContent = "✅";
+        passwordError.style.color = "green";
+        passwordinput.style.border = "1px solid green";
+        passwordinput.style.boxShadow = "0 0 10px green";
+      }
+
+      return validate;
+    }
+  </script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-     const firebaseConfig = {
-      apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
-      authDomain: "new-bible-quiz-app.firebaseapp.com",
-      databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
-      projectId: "new-bible-quiz-app",
-      storageBucket: "new-bible-quiz-app.appspot.com",
-      messagingSenderId: "686170969568",
-      appId: "1:686170969568:web:31d3e10ed615dba548c785"
-    };
+   const firebaseConfig = {
+  apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
+  authDomain: "new-bible-quiz-app.firebaseapp.com",
+  databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
+  projectId: "new-bible-quiz-app",
+  storageBucket: "new-bible-quiz-app.appspot.com", // ✅ corrected here
+  messagingSenderId: "686170969568",
+  appId: "1:686170969568:web:31d3e10ed615dba548c785"
+};
+
+// Initialize Firebase
 
     
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const database = getDatabase(app);
 
-    const form = document.querySelector("form");
+    const form = document.getElementById("signupForm");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      // ✅ first validate
+      if (!window.validatesignin()) {
+        return; // 🚫 validation fail → don't send to firebase
+      }
 
       const name = document.getElementById("username").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
       const number = document.getElementById("number").value.trim();
 
-      try {
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-
-            set(ref(database, 'users/' + user.uid), {
-              name: name,
-              email: email,
-              phone: number
-            })
-            .then(() => {
-              alert("Your account successfully created");
-              window.location.href = "bible.html";
-            })
-            .catch((error) => {
-              alert("❌ DB Save Error: " + error.message);
-            });
-
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          set(ref(database, 'users/' + user.uid), {
+            name: name,
+            email: email,
+            phone: number
+          })
+          .then(() => {
+            alert("✅ Your account successfully created");
+            window.location.href = "bible.html";
           })
           .catch((error) => {
-            alert("❌ Auth Error: " + error.message);
+            alert("❌ DB Save Error: " + error.message);
           });
-
-      } catch (error) {
-        console.error("⚠ Firebase/Storage access error:", error);
-        alert("⚠ Your browser denied some permissions. Please try in Chrome app directly.");
-      }
+        })
+        .catch((error) => {
+          alert("❌ Auth Error: " + error.message);
+        });
     });
   </script>
 
@@ -122,6 +161,7 @@
       }
     });
   </script>
-
 </body>
 </html>
+
+

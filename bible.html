@@ -298,10 +298,22 @@ header h1 {
       <h1 class="text-center"style="color:blue;">THIS YOUR BIBLE QUIZ SCORE BOARD TOTAL 50 MARKS</h1>
    <p id="scoreBoard" class="text-center">Your Total Score: 0</p>
 
-      
+      <div class="mt-3 p-3 border rounded" style="background:#f0f8ff;">
+    <h5 class="text-center mb-3" style="color:green;">మీ పేరు మరియు మీ ఊరు నమోదు చేయండి</h5>
+    <div class="mb-3">
+      <input type="text" id="fullName" class="form-control mb-2" placeholder="మీ పేరు (పేరు + ఇంటిపేరు)">
+      <input type="text" id="villageName" class="form-control mb-2" placeholder="మీ ఊరు">
+      <button class="btn btn-success w-100" onclick="saveNameAndVillage()">✅ Submit</button>
+    </div>
+  </div>
+</div>
 
    
-    
+
+ 
+   
+
+
 </div>
     </div>
  <section>
@@ -917,15 +929,19 @@ header h1 {
   import { getDatabase, ref, set, push, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
   // ✅ Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
-    authDomain: "new-bible-quiz-app.firebaseapp.com",
-    databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
-    projectId: "new-bible-quiz-app",
-    storageBucket: "new-bible-quiz-app.firebasestorage.app",
-    messagingSenderId: "686170969568",
-    appId: "1:686170969568:web:31d3e10ed615dba548c785"
-  };
+   const firebaseConfig = {
+  apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
+  authDomain: "new-bible-quiz-app.firebaseapp.com",
+  databaseURL: "https://new-bible-quiz-app-default-rtdb.firebaseio.com",
+  projectId: "new-bible-quiz-app",
+  storageBucket: "new-bible-quiz-app.appspot.com", // ✅ corrected here
+  messagingSenderId: "686170969568",
+  appId: "1:686170969568:web:31d3e10ed615dba548c785"
+};
+
+// Initialize Firebase
+
+  
 
   // ✅ Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -986,6 +1002,33 @@ header h1 {
       .then(() => console.log("✅ Score updated in users node!"))
       .catch((err) => console.error("❌ Error updating score in users node:", err));
   }
+// 👇 main script లో ఈ function add చేయి
+window.saveNameAndVillage = function () {
+  const fullName = document.getElementById('fullName').value.trim();
+  const villageName = document.getElementById('villageName').value.trim();
+  if (!fullName || !villageName) {
+    alert("❌ దయచేసి మీ పేరు మరియు ఊరు రెండూ నమోదు చేయండి!");
+    return;
+  }
+  const user = auth.currentUser;
+  if (!user) {
+    alert("⚠️ ముందుగా Login అవ్వాలి!");
+    window.location.href = "login.html";
+    return;
+  }
+  update(ref(db, "users/" + user.uid), {
+    fullName: fullName,
+    village: villageName
+  })
+  .then(() => {
+    alert("✅ మీ పేరు మరియు ఊరు సక్సెస్‌ఫుల్‌గా సేవ్ అయ్యాయి!");
+    document.getElementById('fullName').value = "";
+    document.getElementById('villageName').value = "";
+  })
+  .catch((err) => {
+    alert("❌ Error: " + err.message);
+  });
+};
 
   // --------------------
   // ✅ Levenshtein helper (fuzzy match)
@@ -1011,7 +1054,7 @@ header h1 {
   const answerlist = {
   1: ["2వ రోజు (1:6-8)","2 రోజు","రెండవ రోజు","2nd day","second day","rendova roju"],
   2: ["మోషే (ఆదికాండము గ్రంథకర్త)","moshe","moses"],
-  3: ["1533 (మొత్తం వచనాలు)","ఒకవేలు ఐదు వందలు ముప్పైమూడు","1533 verses"],
+  3: ["1533 (మొత్తం వచనాలు)","1533","ఒకవేలు ఐదు వందలు ముప్పైమూడు","1533 verses"],
   4: ["ఆదికాండము 3:15 (ముఖ్యమైన వచనం)","genesis 3:15","3:15","మూడవ అధ్యాయం 15వ వచనం"],
   5: ["నోదు (4:16)","nod","nothu","nodo"],
   6: ["యూబాలు (4:21)","jubal","yubalu"],
@@ -1166,6 +1209,7 @@ header h1 {
       }
     });
   </script>
+
 
 
 
