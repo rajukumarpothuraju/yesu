@@ -959,20 +959,20 @@ header h1 {
   // ✅ Reset score every time page load
   // --------------------
   
-  onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("✅ User found:", user.email);
-    // 👉 Reset logic (optional)
+    console.log("✅ User logged in:", user.email);
+    // 👉 ఇక్కడ నీ reset logic
     score = 0;
     answered = {};
     if (scoreBoard) scoreBoard.textContent = "Score: 0";
 
-    await set(ref(db, "scores/" + user.uid), {
+    set(ref(db, "scores/" + user.uid), {
       score: 0,
       timestamp: Date.now()
     });
 
-    // 👉 అన్ని inputs unlock
+    // 👉 అన్ని inputs unlock చేయి
     document.querySelectorAll("input[id^='question']").forEach(inp => {
       inp.disabled = false;
       inp.value = "";
@@ -982,15 +982,15 @@ header h1 {
       btn.textContent = "Submit";
     });
   } else {
-    console.log("⚠️ User not logged in yet, waiting...");
-    setTimeout(() => {
-      if (!auth.currentUser) {
-        alert("⚠️ ముందుగా Login అవ్వాలి!");
-        window.location.href = "login.html";
-      }
-    }, 1000); // small delay
+    console.log("⚠️ User not logged in. Redirecting to login page...");
+    alert("⚠️ ముందుగా Login అవ్వాలి!");
+    window.location.href = "login.html";
   }
 });
+
+  
+
+    
 
   // --------------------
   // ✅ Save score to firebase
