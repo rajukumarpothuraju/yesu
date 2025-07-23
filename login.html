@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,49 +24,27 @@
       max-width: 400px;
       width: 100%;
     }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: 600; }
     input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;
     }
     .btn {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+      background-color: #007bff; color: white; padding: 10px 20px;
+      border: none; border-radius: 8px; cursor: pointer;
+      width: 100%; font-size: 16px; transition: background-color 0.3s ease;
     }
-    .btn:hover {
-      background-color: #0056b3;
-    }
-    .link {
-      margin-top: 15px;
-      display: block;
-      text-align: center;
-    }
+    .btn:hover { background-color: #0056b3; }
+    .link { margin-top: 15px; display: block; text-align: center; }
   </style>
 
-  <!-- ✅ WhatsApp / InApp Chrome Redirect -->
+  <!-- ✅ WhatsApp/Instagram/Facebook InApp Chrome Redirect -->
   <script>
     window.addEventListener("load", function () {
       const ua = navigator.userAgent.toLowerCase();
       const isInAppBrowser =
         ua.includes("fbav") || ua.includes("instagram") || ua.includes("whatsapp");
       const isChrome = ua.includes("chrome");
-
       if (isInAppBrowser && !isChrome) {
         alert("⚠ For best experience, this site will open in Chrome browser.");
         const url = window.location.href;
@@ -82,6 +61,10 @@
     <h2 class="text-center mb-4">Sign In</h2>
     <form id="login-form">
       <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required class="form-control"/>
+      </div>
+      <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" required class="form-control"/>
       </div>
@@ -94,11 +77,12 @@
     <a href="index.html" class="link">Don't have an account? Sign Up</a>
   </div>
 
-  <!-- ✅ Firebase Authentication Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+    // ✅ Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyD9juuO9qTf66xywHKZvVraDVYIOo0XABw",
       authDomain: "new-bible-quiz-app.firebaseapp.com",
@@ -108,28 +92,41 @@
       messagingSenderId: "686170969568",
       appId: "1:686170969568:web:31d3e10ed615dba548c785"
     };
-    
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getDatabase(app);
 
     const loginForm = document.getElementById("login-form");
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
+      const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
+
+      if (!name || !email || !password) {
+        alert("⚠️ Please fill all fields!");
+        return;
+      }
 
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          try {
-            localStorage.setItem("userEmail", user.email);
-          } catch (error) {
-            console.error("LocalStorage blocked:", error);
-          }
-          alert("✅ Login successful!");
-          window.location.href = "bible.html";
+          // ✅ Save name & email in Realtime DB
+          set(ref(db, "users/" + user.uid), {
+            name: name,
+            email: email
+          }).then(() => {
+            console.log("✅ Name & Email Saved");
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userEmail", email);
+            alert("✅ Login successful!");
+            window.location.href = "bible.html";
+          }).catch((err) => {
+            console.error("❌ DB Save Error:", err);
+            alert("❌ Failed to save user data");
+          });
         })
         .catch((error) => {
           alert("❌ Error: " + error.message);
@@ -138,5 +135,4 @@
   </script>
 </body>
 </html>
-
 
