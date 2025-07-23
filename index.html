@@ -18,45 +18,47 @@
 </head>
 
 <body>
+  
   <section class="container p-5">
-    <div class="col-lg-6 p-5 mx-auto" style="box-shadow:0 4px 8px rgba(0,0,0,0.2),0 6px 20px rgba(0,0,0,0.19);">
-      <h1 class="text-center mb-3 mt-0"><strong>House of prayer</strong></h1>
-   
+  <div class="col-lg-6 p-5 mx-auto" style="box-shadow:0 4px 8px rgba(0,0,0,0.2),0 6px 20px rgba(0,0,0,0.19);">
+    <h1 class="text-center mb-3 mt-0"><strong>House of prayer</strong></h1>
+
     <form onsubmit="return validate()" action="bible.html">
-  <input id="username" type="text" name="username" placeholder="enter name" class="form-control mb-3">
-  <p id="error"></p>
+      <input id="username" type="text" name="username" placeholder="enter name" class="form-control mb-3">
+      <p id="error"></p>
 
- <input id="email" type="email" name="email" placeholder="enter email" class="form-control mb-3">
-  <p id="EmailError"></p>
+      <input id="email" type="email" name="email" placeholder="enter email" class="form-control mb-3">
+      <p id="EmailError"></p>
 
-  <input id="password" type="password" name="password" placeholder="enter password" class="form-control mb-3">
-  <p id="passError"></p>
+      <input id="password" type="password" name="password" placeholder="enter password" class="form-control mb-3">
+      <p id="passError"></p>
 
- 
+      <input id="number" type="number" name="number" placeholder="enter number" class="form-control mb-3">
+      <p id="numberError"></p>
 
-  <input id="number" type="number" name="number" placeholder="enter number" class="form-control mb-3">
-  <p id="numberError"></p>
-  <div class="d-flex justify-content-center">
+      <!-- ✅ Button Center -->
+      <div class="d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+      <!-- ✅ Login link separate -->
+      <h6 class="login text-center mt-3">
+        Already you have an account? <a href="login.html">Click to login</a>
+      </h6>
+    </form>
+  </div>
+</section>
 
 
-     <a href="login.html">
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <p id="submit"></p>
-  <h6 class="login">already you have a account click to login</h6>
-</a>
-</div>
-</form>
+      
 
       
 
       
 
-      
-
 
       
-    </div>
-  </section>
+    
   <script src="signup.js"></script>
   
   

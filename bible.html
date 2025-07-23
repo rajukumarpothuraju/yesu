@@ -130,34 +130,32 @@ header h1 {
   margin: 10px;
 }
 
-.about-btn {  /* left nundi distance */        /* mighata content meeda kanipinchali */
-  padding: 5px ;
-  margin-left: 10px !important;
-  list-style-type: none;
-  font-size: 10px;
+
+.about-btn {
+  display: inline-block;
+  padding: 8px 16px;           /* top-bottom 8px, left-right 16px */
+  font-size: 14px;
   font-weight: bold;
   color: #fff;
+  text-decoration: none;
   background: linear-gradient(45deg, #120f10, #fb3e1d);
   border-radius: 50px;
   border: none;
-  text-decoration: none;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  display: inline-block;
-  position: fixed;
-  top:440px;
-  right: 500px;
-  z-index: 1000;
+  transition: all 0.3s ease;
+  line-height: 1.2;           /* text height normalise అవుతుంది */
+  vertical-align: middle;     /* text center లోకి align అవుతుంది */
 }
-
-
-
 
 .about-btn:hover {
-  background: linear-gradient(45deg, #ff4b2b, #ff416c); /* reverse gradient */
-  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
   box-shadow: 0 6px 15px rgba(0,0,0,0.4);
 }
+
+
+
+
+
 
 .navbar {
   background: linear-gradient(45deg, #ff416c, #ff4b2b);
@@ -204,20 +202,33 @@ header h1 {
 
   </STYLE>
   
- 
-    <nav class="navbar navbar-light bg-light d-flex justify-content-center  px-3">
-  <!-- Left side -->
-  <a class="navbar-brand m-0 text-center" style="color:red; font-weight:bold; font-size:35px;" href="#">
-    <strong>House of prayer</strong>
-    <img class="cross" src="jesus cross update.png" alt="">
-  </a>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background: linear-gradient(45deg,#ff416c,#ff4b2b);">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand m-0 text-center" style="color:white; font-weight:bold; font-size:25px;" href="#">
+      House of prayer
+      <img class="cross" src="jesus cross update.png" alt="">
+    </a>
 
-  <!-- Right side -->
-  <a class="about-btn text-center" id="about" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
-    contact us for prayer request<br>
-    <span style="font-size:10px;">click here</span>
-  </a>
+    <!-- Toggler (hamburger icon for mobile) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <!-- Button on right -->
+      <a class="about-btn text-center" id="about" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">
+        contact us for prayer request<br>
+        <span style="font-size:10px;">click here</span>
+      </a>
+    </div>
+  </div>
 </nav>
+
+
+   
+  
 
 
 <div class="modal fade" id="aboutModal" tabindex="-1" aria-hidden="true">
