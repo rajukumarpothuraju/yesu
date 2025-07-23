@@ -921,7 +921,6 @@ header h1 {
 
    </div> 
 
-
 <script type="module">
   // ✅ Firebase Imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
@@ -959,33 +958,39 @@ header h1 {
   // --------------------
   // ✅ Reset score every time page load
   // --------------------
+  
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      // 👉 login అయ్యిన వెంటనే reset
-      score = 0;
-      answered = {};
-      if (scoreBoard) scoreBoard.textContent = "Score: 0";
+  if (user) {
+    console.log("✅ User found:", user.email);
+    // 👉 Reset logic (optional)
+    score = 0;
+    answered = {};
+    if (scoreBoard) scoreBoard.textContent = "Score: 0";
 
-      await set(ref(db, "scores/" + user.uid), {
-        score: 0,
-        timestamp: Date.now()
-      });
+    await set(ref(db, "scores/" + user.uid), {
+      score: 0,
+      timestamp: Date.now()
+    });
 
-      // 👉 అన్ని inputs unlock
-      document.querySelectorAll("input[id^='question']").forEach(inp => {
-        inp.disabled = false;
-        inp.value = "";
-      });
-      document.querySelectorAll("button[type='submit']").forEach(btn => {
-        btn.disabled = false;
-        btn.textContent = "Submit";
-      });
-
-    } else {
-      alert("⚠️ ముందుగా Login అవ్వాలి!");
-      window.location.href = "login.html";
-    }
-  });
+    // 👉 అన్ని inputs unlock
+    document.querySelectorAll("input[id^='question']").forEach(inp => {
+      inp.disabled = false;
+      inp.value = "";
+    });
+    document.querySelectorAll("button[type='submit']").forEach(btn => {
+      btn.disabled = false;
+      btn.textContent = "Submit";
+    });
+  } else {
+    console.log("⚠️ User not logged in yet, waiting...");
+    setTimeout(() => {
+      if (!auth.currentUser) {
+        alert("⚠️ ముందుగా Login అవ్వాలి!");
+        window.location.href = "login.html";
+      }
+    }, 1000); // small delay
+  }
+});
 
   // --------------------
   // ✅ Save score to firebase
@@ -1193,7 +1198,7 @@ window.saveNameAndVillage = function () {
 
 
   <!-- ✅ WhatsApp → Chrome redirect logic -->
-  <script>
+  <scr>
     window.addEventListener("load", function () {
       const ua = navigator.userAgent.toLowerCase();
       const isInAppBrowser =
@@ -1210,23 +1215,7 @@ window.saveNameAndVillage = function () {
     });
   </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-</section>
- <script type="module" src="script.js"></script>
+    
 
  
 </body>
