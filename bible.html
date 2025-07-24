@@ -968,21 +968,11 @@ header h1 {
   // --------------------
   // ✅ Save score to firebase
   // --------------------
-  function saveScoreToFirebase() {
-    const user = auth.currentUser;
-    if (!user) return;
 
-    const userRef = ref(db, 'users/' + user.uid);
-    update(userRef, {
-      score: score,
-      submittedAt: new Date().toLocaleString()
-    })
-      .then(() => console.log("✅ Score updated in users node!"))
-      .catch((err) => console.error("❌ Error updating score in users node:", err));
-  }
-// 👇 main script లో ఈ function add చేయి
+    let currentUserKey = null;
 
-    window.saveNameAndVillage = function () {
+// 👉 పేరు & ఊరు save చేసే function
+window.saveNameAndVillage = function () {
   const fullName = document.getElementById('fullName').value.trim();
   const villageName = document.getElementById('villageName').value.trim();
 
@@ -991,11 +981,14 @@ header h1 {
     return;
   }
 
-  // ✅ direct ga store cheyyi
+  // ✅ కొత్త row create అవుతుంది usersData లో
   const newRef = push(ref(db, "usersData"));
+  currentUserKey = newRef.key; // ⭐️ ఈ key ని గుర్తు పెట్టుకుంటాం
+
   set(newRef, {
     fullName: fullName,
     village: villageName,
+    score: 0, // score కూడా మొదట 0 గా save అవుతుంది
     submittedAt: new Date().toLocaleString()
   })
   .then(() => {
@@ -1008,6 +1001,23 @@ header h1 {
   });
 };
 
+// 👉 score update చేసే function
+function saveScoreToFirebase() {
+  if (!currentUserKey) {
+    console.warn("⚠️ ముందుగా పేరు & ఊరు submit చేయాలి!");
+    return;
+  }
+
+  const userRef = ref(db, 'usersData/' + currentUserKey);
+  update(userRef, {
+    score: score,
+    submittedAt: new Date().toLocaleString()
+  })
+  .then(() => console.log("✅ Score updated in usersData!"))
+  .catch((err) => console.error("❌ Error updating score:", err));
+}
+
+  
   // --------------------
   // ✅ Levenshtein helper (fuzzy match)
   // --------------------
