@@ -958,35 +958,8 @@ header h1 {
   // --------------------
   // ✅ Reset score every time page load
   // --------------------
-  
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("✅ User logged in:", user.email);
-    // 👉 ఇక్కడ నీ reset logic
-    score = 0;
-    answered = {};
-    if (scoreBoard) scoreBoard.textContent = "Score: 0";
 
-    set(ref(db, "scores/" + user.uid), {
-      score: 0,
-      timestamp: Date.now()
-    });
-
-    // 👉 అన్ని inputs unlock చేయి
-    document.querySelectorAll("input[id^='question']").forEach(inp => {
-      inp.disabled = false;
-      inp.value = "";
-    });
-    document.querySelectorAll("button[type='submit']").forEach(btn => {
-      btn.disabled = false;
-      btn.textContent = "Submit";
-    });
-  } else {
-    console.log("⚠️ User not logged in. Redirecting to login page...");
-    alert("⚠️ ముందుగా Login అవ్వాలి!");
-    window.location.href = "login.html";
-  }
-});
+    
 
   
 
