@@ -981,22 +981,22 @@ header h1 {
       .catch((err) => console.error("❌ Error updating score in users node:", err));
   }
 // 👇 main script లో ఈ function add చేయి
-window.saveNameAndVillage = function () {
+
+    window.saveNameAndVillage = function () {
   const fullName = document.getElementById('fullName').value.trim();
   const villageName = document.getElementById('villageName').value.trim();
+
   if (!fullName || !villageName) {
     alert("❌ దయచేసి మీ పేరు మరియు ఊరు రెండూ నమోదు చేయండి!");
     return;
   }
-  const user = auth.currentUser;
-  if (!user) {
-    alert("⚠️ ముందుగా Login అవ్వాలి!");
-    window.location.href = "login.html";
-    return;
-  }
-  update(ref(db, "users/" + user.uid), {
+
+  // ✅ direct ga store cheyyi
+  const newRef = push(ref(db, "usersData"));
+  set(newRef, {
     fullName: fullName,
-    village: villageName
+    village: villageName,
+    submittedAt: new Date().toLocaleString()
   })
   .then(() => {
     alert("✅ మీ పేరు మరియు ఊరు సక్సెస్‌ఫుల్‌గా సేవ్ అయ్యాయి!");
