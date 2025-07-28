@@ -1120,14 +1120,20 @@ function saveScoreToFirebase() {
       return false;
     }
 
-    let isCorrect = false;
-    for (let ans of (answerlist[qno] || [])) {
-      let cleanAns = ans.toLowerCase().trim();
-      if (cleanAns === userAnswer || levenshtein(cleanAns, userAnswer) <= 2) {
-        isCorrect = true;
-        break;
-      }
-    }
+    
+  let isCorrect = false;
+for (let ans of (answerlist[qno] || [])) {
+  let cleanAns = ans.toLowerCase().trim();
+  if (
+    userAnswer.includes(cleanAns) ||     // ✅ main answer user answerలో ఉంటే
+    cleanAns.includes(userAnswer) ||     // ✅ భాగం మాత్రమే ఉన్నా సరే
+    levenshtein(cleanAns, userAnswer) <= 2
+  ) {
+    isCorrect = true;
+    break;
+  }
+}
+    
 
     if (isCorrect) {
       result.textContent = "✅ సరైన సమాధానం!";
