@@ -926,8 +926,7 @@ header h1 {
 
    </div> 
 
-
-    <script type="module">
+<script type="module">
   
   
   // ✅ Firebase Imports
@@ -1044,12 +1043,158 @@ function saveScoreToFirebase() {
   }
 
   // --------------------
+  // ✅ Text normalization helper function
+  // --------------------
+  function normalizeText(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, ' ')  // multiple spaces ని single space చేయడం
+      .replace(/[.,;:!?()]/g, '') // punctuation తీసేయడం
+      .replace(/\u200b|\u200c|\u200d/g, ''); // invisible characters తీసేయడం
+  }
+
+  // --------------------
+  // ✅ Very lenient answer checking function - accepts any close spelling
+  // --------------------
+  function isAnswerCorrect(userAnswer, correctAnswers) {
+    const normalizedUserAnswer = normalizeText(userAnswer);
+    
+    // Empty answer check
+    if (normalizedUserAnswer === "") return false;
+    
+    for (let correctAns of correctAnswers) {
+      const normalizedCorrectAns = normalizeText(correctAns);
+      
+      // Exact match after normalization
+      if (normalizedUserAnswer === normalizedCorrectAns) {
+        return true;
+      }
+      
+      // Contains check (both directions) - very lenient
+      if (normalizedUserAnswer.includes(normalizedCorrectAns) || 
+          normalizedCorrectAns.includes(normalizedUserAnswer)) {
+        return true;
+      }
+      
+      // Super lenient fuzzy match - accept almost any close attempt
+      const distance = levenshtein(normalizedCorrectAns, normalizedUserAnswer);
+      const maxLength = Math.max(normalizedCorrectAns.length, normalizedUserAnswer.length);
+      const minLength = Math.min(normalizedCorrectAns.length, normalizedUserAnswer.length);
+      
+      // Very lenient scoring - accept if user made reasonable attempt
+      let requiredSimilarity;
+      if (maxLength <= 3) {
+        requiredSimilarity = 0.3; // Very short - 30% enough
+      } else if (maxLength <= 6) {
+        requiredSimilarity = 0.4; // Short - 40% enough
+      } else if (maxLength <= 10) {
+        requiredSimilarity = 0.5; // Medium - 50% enough
+      } else {
+        requiredSimilarity = 0.6; // Long - 60% enough
+      }
+      
+      const similarity = 1 - (distance / maxLength);
+      if (similarity >= requiredSimilarity) {
+        return true;
+      }
+      
+      // Character overlap method - if enough common characters
+      let commonChars = 0;
+      let correctChars = normalizedCorrectAns.split('');
+      let userChars = normalizedUserAnswer.split('');
+      
+      for (let char of userChars) {
+        if (correctChars.includes(char)) {
+          commonChars++;
+          // Remove used character to avoid double counting
+          let index = correctChars.indexOf(char);
+          if (index > -1) correctChars.splice(index, 1);
+        }
+      }
+      
+      const charOverlap = commonChars / Math.max(normalizedUserAnswer.length, normalizedCorrectAns.length);
+      if (charOverlap >= 0.6) { // 60% character overlap
+        return true;
+      }
+      
+      // Subsequence matching - check if user answer is roughly same sequence
+      function isSubsequence(s1, s2) {
+        let i = 0, j = 0;
+        while (i < s1.length && j < s2.length) {
+          if (s1[i] === s2[j]) i++;
+          j++;
+        }
+        return i >= Math.min(s1.length * 0.7, s1.length); // 70% of characters should be in sequence
+      }
+      
+      if (isSubsequence(normalizedUserAnswer, normalizedCorrectAns) || 
+          isSubsequence(normalizedCorrectAns, normalizedUserAnswer)) {
+        return true;
+      }
+      
+      // Word-by-word matching with extreme tolerance
+      const userWords = normalizedUserAnswer.split(' ');
+      const correctWords = normalizedCorrectAns.split(' ');
+      
+      if (correctWords.length > 1 && userWords.length > 0) {
+        let matchCount = 0;
+        for (let correctWord of correctWords) {
+          for (let userWord of userWords) {
+            // Exact match
+            if (userWord === correctWord) {
+              matchCount++;
+              break;
+            }
+            // Contains match
+            if (userWord.includes(correctWord) || correctWord.includes(userWord)) {
+              matchCount++;
+              break;
+            }
+            // Very lenient word-level fuzzy match
+            const wordDistance = levenshtein(correctWord, userWord);
+            const wordMaxLength = Math.max(correctWord.length, userWord.length);
+            const wordSimilarity = 1 - (wordDistance / wordMaxLength);
+            
+            // Accept if word is even 40% similar
+            if (wordSimilarity >= 0.4) {
+              matchCount++;
+              break;
+            }
+            
+            // First few characters match
+            if (correctWord.length >= 3 && userWord.length >= 3 &&
+                correctWord.substring(0, 3) === userWord.substring(0, 3)) {
+              matchCount++;
+              break;
+            }
+          }
+        }
+        
+        // If even 50% of words have some match, accept it
+        if (matchCount / correctWords.length >= 0.5) {
+          return true;
+        }
+      }
+      
+      // Final fallback - if lengths are similar and first few chars match
+      if (Math.abs(normalizedUserAnswer.length - normalizedCorrectAns.length) <= 3 &&
+          normalizedUserAnswer.length >= 3 && normalizedCorrectAns.length >= 3 &&
+          normalizedUserAnswer.substring(0, 2) === normalizedCorrectAns.substring(0, 2)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  // --------------------
   // ✅ ANSWERS LIST
   // --------------------
   
  const answerlist = {
   1: ["2వ రోజు","2 రోజు","రెండవ రోజు","2nd day","second day","rendova roju"],
-  2: ["మోషే","moshe","moses"],
+  2: ["మోషే","moshe","moses","మోషే అదికాండము గ్రంధకర్త","moshe adikandamu grandakartha","moses writer","మోషే గ్రంధకర్త"],
   3: ["1533","ఒకవేలు ఐదు వందలు ముప్పైమూడు","1533 verses"],
   4: ["ఆదికాండము 3:15","genesis 3:15","3:15","మూడవ అధ్యాయం 15వ వచనం"],
   5: ["నోదు","nod","nothu","nodo"],
@@ -1096,43 +1241,38 @@ function saveScoreToFirebase() {
   46: ["బేత్లెహేము ఎఫ్రాతా మార్గమున","bethlehem","efratha road","bethlehem ephrath"],
   47: ["నూటపది సంవత్సరములు","110 years","110","nootapadi samvatsaralu"],
   48: ["పిచుల వృక్షము","pichula vrukshamu","ఎసెల్ చెట్టు","eshel tree","eshel","esel","tamarisk tree","tamarisk"],
-  49: ["పదమూడు సంవత్సరములు","13 years","13","padamoodu samvatsaralu","పదమూడేళ్ళు","పదుమూడేండ్లవాడు.","padamudu","13"],
+  49: ["పదమూడు సంవత్సరములు","13 years","13","padamoodu samvatsaramu","పదమూడేళ్ళు","పదుమూడేండ్లవాడు","padamudu","13"],
   50: ["నోదు","nod","nothu","nodo","nodu"]
 };
       
 
   // --------------------
-  // ✅ CHECKANSWER
+  // ✅ IMPROVED CHECKANSWER FUNCTION
   // --------------------
   window.checkanswer = function (qno) {
     const input = document.getElementById("question" + qno);
     const result = document.getElementById("result" + qno);
-    let userAnswer = input.value.trim().toLowerCase();
+    let userAnswer = input.value.trim();
 
+    // Already answered check
     if (answered[qno]) {
       result.textContent = "🔒 ఇప్పటికే submit చేశారు!";
       result.style.color = "blue";
       return false;
     }
+
+    // Empty answer check
     if (userAnswer === "") {
       result.textContent = "❌ దయచేసి సమాధానం ఇవ్వండి";
       result.style.color = "red";
       return false;
     }
 
+    // Get correct answers for this question
+    const correctAnswers = answerlist[qno] || [];
     
-  let isCorrect = false;
-for (let ans of (answerlist[qno] || [])) {
-  let cleanAns = ans.toLowerCase().trim();
-  if (
-    userAnswer.includes(cleanAns) ||     // ✅ main answer user answerలో ఉంటే
-    cleanAns.includes(userAnswer) ||     // ✅ భాగం మాత్రమే ఉన్నా సరే
-    levenshtein(cleanAns, userAnswer) <= 2
-  ) {
-    isCorrect = true;
-    break;
-  }
-}
+    // Check if answer is correct using improved logic
+    const isCorrect = isAnswerCorrect(userAnswer, correctAnswers);
     
 
     if (isCorrect) {
@@ -1140,7 +1280,7 @@ for (let ans of (answerlist[qno] || [])) {
       result.style.color = "green";
       score++;
     } else {
-      result.innerHTML = `❌ Wrong!<br>✅ సరైన సమాధానం: <span style="color:green;">${(answerlist[qno] || [""])[0]}</span>`;
+      result.innerHTML = `❌ Wrong!<br>✅ సరైన సమాధానం: <span style="color:green;">${correctAnswers[0] || ""}</span>`;
       result.style.color = "red";
     }
 
@@ -1236,5 +1376,7 @@ for (let ans of (answerlist[qno] || [])) {
 
 
  
-</body>
-</html>
+
+
+    
+    
